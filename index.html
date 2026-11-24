@@ -16,8 +16,8 @@
 <link rel="apple-touch-icon" href="assets/icon.png?v=5">
 <style>
   :root{
-    --bg:#0b0716; --panel:#161029; --panel-2:#100b1e; --line:#2a1f4a; --line-2:#3d2e6b;
-    --text:#eeeaf9; --muted:#a29ac2; --muted-2:#726a92;
+    --bg:#000000; --panel:#0a0a11; --panel-2:#060609; --line:#1c1c28; --line-2:#30303f;
+    --text:#eeeaf9; --muted:#9a92b8; --muted-2:#6d6489;
     --grad:linear-gradient(135deg,#f0abfc 0%,#d8b4fe 20%,#b17cff 45%,#8b5cf6 70%,#6d28d9 100%);
     --radius:18px;
   }
@@ -31,9 +31,9 @@
     background-image:
       linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
       linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px),
-      radial-gradient(900px 520px at 12% -8%, rgba(139,92,246,.30), transparent 62%),
-      radial-gradient(760px 520px at 88% 0%, rgba(124,58,237,.24), transparent 60%),
-      radial-gradient(900px 700px at 50% 106%, rgba(109,40,217,.26), transparent 62%);
+      radial-gradient(900px 520px at 12% -8%, rgba(124,58,237,.26), transparent 60%),
+      radial-gradient(760px 520px at 88% 0%, rgba(193,26,82,.18), transparent 58%),
+      radial-gradient(900px 700px at 50% 106%, rgba(74,20,160,.24), transparent 62%);
     background-size:64px 64px, 64px 64px, auto, auto, auto;
     background-repeat:repeat, repeat, no-repeat, no-repeat, no-repeat;
   }
@@ -42,11 +42,61 @@
   .wrap{width:100%; max-width:1120px; margin:0 auto; padding:0 24px}
   .grad-text{background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
 
+  /* ---------- 3d logo ---------- */
+  .logo3d{
+    position:relative; display:inline-block;
+    font-family:"Arial Black","Segoe UI Black",Impact,system-ui,sans-serif;
+    font-weight:900; font-style:italic; letter-spacing:-.04em; line-height:1;
+    transform:skewX(-6deg); transform-origin:center bottom;
+    filter:drop-shadow(.42em .5em .55em rgba(0,0,0,.75));
+  }
+  .logo3d .l3d{position:absolute; left:0; top:0; color:#1b0d4a; white-space:nowrap; pointer-events:none}
+  .logo3d .l3d-face{
+    position:relative; display:block;
+    background:linear-gradient(100deg,#4a35ff 0%,#8a1ce0 26%,#cf1395 50%,#f52c3f 72%,#ff8a2b 88%,#ffd45a 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    -webkit-text-stroke:.6px rgba(255,180,90,.35);
+  }
+  .brand-logo{font-size:24px; margin-left:-2px}
+  .hero-logo{font-size:clamp(56px,9.4vw,116px); margin:0 0 .14em -4px}
+  .foot-logo{font-size:21px}
+
+  /* ---------- intro gate ---------- */
+  .intro{
+    position:fixed; inset:0; z-index:120; background:#000;
+    display:grid; place-items:center; text-align:center;
+    transition:opacity .85s ease, visibility .85s;
+  }
+  .intro.gone{opacity:0; visibility:hidden; pointer-events:none}
+  body.locked{overflow:hidden}
+  .intro-in{
+    display:flex; flex-direction:column; align-items:center; gap:16px; padding:0 24px;
+    animation:intro-in 1s cubic-bezier(.2,.7,.2,1) both;
+  }
+  .intro .logo3d{font-size:clamp(82px,16vw,168px); margin-bottom:.18em}
+  .intro-sub{
+    margin:4px 0 0; color:#8b8b9e; font-size:12.5px; letter-spacing:.22em;
+    text-transform:uppercase; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  .intro-enter{
+    margin-top:14px; padding:12px 28px; border-radius:999px; cursor:pointer;
+    border:1px solid #2e2e3d; background:rgba(255,255,255,.04); color:#fff;
+    font:inherit; font-size:15px; font-weight:600; letter-spacing:.02em;
+    transition:transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .intro-enter:hover{transform:translateY(-2px); background:#fff; color:#000; border-color:#fff}
+  .intro-skip{
+    margin-top:2px; border:0; background:none; color:#4f4f60; font:inherit; font-size:12px;
+    cursor:pointer; text-decoration:underline; text-underline-offset:3px;
+  }
+  .intro-skip:hover{color:#9a92b8}
+  @keyframes intro-in{from{opacity:0; transform:translateY(22px)}to{opacity:1; transform:none}}
+
   /* ---------- nav ---------- */
   .nav{
     position:sticky; top:0; z-index:50;
     backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-    background:rgba(10,11,15,.72); border-bottom:1px solid rgba(255,255,255,.06);
+    background:rgba(0,0,0,.72); border-bottom:1px solid rgba(255,255,255,.06);
   }
   .nav-in{display:flex; align-items:center; gap:26px; height:64px}
   .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:-.02em; font-size:18px}
@@ -269,7 +319,8 @@
   .grid [data-reveal]:nth-child(6), .grid [data-reveal]:nth-child(9){transition-delay:.14s}
 
   /* hero entrance */
-  .hero h1 > span{display:block; animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+  .hero h1 > span{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+  .hero h1 > span.thin{display:block}
   .hero h1 .thin{animation-delay:.09s}
   @keyframes rise{from{opacity:0; transform:translate3d(0,26px,0)}to{opacity:1; transform:none}}
   .hero .lead, .hero-cta, .trust{animation:rise 1s cubic-bezier(.2,.7,.2,1) both}
@@ -324,9 +375,18 @@
 <div class="bg" aria-hidden="true"><i></i><i></i><i></i></div>
 <div class="progress" id="progress" aria-hidden="true"></div>
 
+<div class="intro" id="intro">
+  <div class="intro-in">
+    <div class="logo3d" aria-label="UNI"><span class="l3d-face">UNI</span></div>
+    <p class="intro-sub"><span data-ru="Roblox, но лучше" data-en="Roblox, but better">Roblox, но лучше</span> · v2.7.3.5-plus</p>
+    <button class="intro-enter" id="enter" type="button" data-ru="Войти" data-en="Enter">Войти</button>
+    <button class="intro-skip" id="skip" type="button" data-ru="Пропустить" data-en="Skip">Пропустить</button>
+  </div>
+</div>
+
 <header class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="#top"><img src="assets/icon.png?v=5" alt="UNI"><span><b>UNI</b></span></a>
+    <a class="brand" href="#top"><span class="logo3d brand-logo"><span class="l3d-face">UNI</span></span></a>
     <nav class="nav-links">
       <a href="#features" data-ru="Возможности" data-en="Features">Возможности</a>
       <a href="#screens" data-ru="Скриншоты" data-en="Screenshots">Скриншоты</a>
@@ -347,7 +407,7 @@
     <section class="hero">
       <div class="badge"><span class="dot"></span><span data-ru="Навсегда бесплатно · открытый код" data-en="Forever free · open source">Навсегда бесплатно · открытый код</span></div>
       <h1>
-        <span class="grad-text">UNI</span>
+        <span class="logo3d hero-logo"><span class="l3d-face">UNI</span></span>
         <span class="thin" data-ru="Roblox, но лучше" data-en="Roblox, but better">Roblox, но лучше</span>
       </h1>
       <p class="lead" data-ru="Расширение, которое бесплатно даёт то, за что другие расширения для Roblox берут деньги: выбор региона, список серверов, стоимость трейдов, рамки профиля и ещё десятки мелочей." data-en="The extension that gives you for free what other Roblox extensions charge for: region picker, server list, trade values, profile frames and dozens of quality-of-life fixes.">Расширение, которое бесплатно даёт то, за что другие расширения для Roblox берут деньги: выбор региона, список серверов, стоимость трейдов, рамки профиля и ещё десятки мелочей.</p>
@@ -540,7 +600,7 @@
 <footer>
   <div class="wrap">
     <div class="foot-top">
-      <a class="brand" href="#top"><img src="assets/icon.png?v=5" alt="UNI"><span><b>UNI</b></span></a>
+      <a class="brand" href="#top"><span class="logo3d foot-logo"><span class="l3d-face">UNI</span></span></a>
       <nav class="foot-links">
         <a href="https://t.me/UNI_EXT" target="_blank" rel="noopener">Telegram</a>
         <a href="downloads/UNI-2.7.3.5-plus.zip" download data-ru="Скачать" data-en="Download">Скачать</a>
@@ -691,6 +751,52 @@
       this.style.setProperty("--mx",(ev.clientX-rect.left)+"px");
       this.style.setProperty("--my",(ev.clientY-rect.top)+"px");
     });
+  }
+
+  /* ---------- 3d logo layers ---------- */
+  (function buildLogos(){
+    var logos=document.querySelectorAll(".logo3d");
+    for(var i=0;i<logos.length;i++){
+      var el=logos[i];
+      var face=el.querySelector(".l3d-face");
+      if(!face || el.querySelector(".l3d")) continue;
+      var frag=document.createDocumentFragment();
+      for(var d=8;d>=1;d--){
+        var layer=document.createElement("span");
+        layer.className="l3d";
+        layer.setAttribute("aria-hidden","true");
+        layer.textContent=face.textContent;
+        layer.style.transform="translate("+(d*0.02).toFixed(3)+"em,"+(d*0.02).toFixed(3)+"em)";
+        layer.style.color = d>5 ? "#150b3c" : (d>2 ? "#1a0d47" : "#211154");
+        frag.appendChild(layer);
+      }
+      el.insertBefore(frag, face);
+    }
+  })();
+
+  /* ---------- intro gate ---------- */
+  var intro=document.getElementById("intro");
+  function closeIntro(){
+    if(!intro || intro.classList.contains("gone")) return;
+    intro.classList.add("gone");
+    document.body.classList.remove("locked");
+    try{sessionStorage.setItem("uni-intro","1");}catch(e){}
+  }
+  if(intro){
+    var seenIntro=false;
+    try{seenIntro=sessionStorage.getItem("uni-intro")==="1";}catch(e){}
+    if(seenIntro){
+      intro.classList.add("gone");
+    } else {
+      document.body.classList.add("locked");
+      var enterBtn=document.getElementById("enter");
+      var skipBtn=document.getElementById("skip");
+      if(enterBtn) enterBtn.addEventListener("click",closeIntro);
+      if(skipBtn) skipBtn.addEventListener("click",closeIntro);
+      window.addEventListener("wheel",closeIntro,{passive:true,once:true});
+      window.addEventListener("touchstart",closeIntro,{passive:true,once:true});
+      setTimeout(closeIntro,9000);
+    }
   }
 
   /* ---------- scroll progress ---------- */
