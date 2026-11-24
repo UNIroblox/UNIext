@@ -1,457 +1,451 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UNI — Roblox, but better</title>
-<meta name="description" content="UNI plus build — a free Roblox extension: region picker, server list, trade values, profile frames, shaders and dozens of small fixes. Download the archive, updates on Telegram.">
-<meta name="theme-color" content="#f3f0e7">
+<title>UNI — Roblox, но лучше</title>
+<meta name="description" content="UNI — бесплатное расширение для Roblox. Сборка plus: выбор региона, серверы, трейды, профиль, темы и десятки мелочей. Скачать архивом, обновления в Telegram.">
+<meta name="theme-color" content="#0a0b0f">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://uniroblox.github.io/UNIext/">
-<meta property="og:title" content="UNI — Roblox, but better">
-<meta property="og:description" content="The plus build: free, no subscriptions, no paywalls. Archive download, updates on Telegram.">
-<meta property="og:image" content="https://uniroblox.github.io/UNIext/assets/region.png?v=4">
+<meta property="og:title" content="UNI — Roblox, но лучше">
+<meta property="og:description" content="Сборка plus: бесплатно, без подписок и пейволлов. Скачивание архивом, обновления в Telegram.">
+<meta property="og:image" content="https://uniroblox.github.io/UNIext/assets/region.png?v=3">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="assets/icon.png?v=4" type="image/png">
-<link rel="apple-touch-icon" href="assets/icon.png?v=4">
+<link rel="icon" href="assets/icon.png?v=3" type="image/png">
+<link rel="apple-touch-icon" href="assets/icon.png?v=3">
 <style>
   :root{
-    --paper:#f3f0e7; --paper-2:#eae6da; --paper-3:#e3ded0;
-    --ink:#16160f; --ink-2:#555448; --muted:#8b8878;
-    --line:#d7d2c3; --line-2:#c1bba6;
-    --accent:#4a2bd6; --accent-2:#7a5cff;
-    --rail:232px;
-    --sans:"Inter","Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
-    --serif:Georgia,"Times New Roman",Times,serif;
-    --mono:ui-monospace,SFMono-Regular,"Cascadia Mono",Menlo,Consolas,monospace;
+    --bg:#0b0716; --panel:#161029; --panel-2:#100b1e; --line:#2a1f4a; --line-2:#3d2e6b;
+    --text:#eeeaf9; --muted:#a29ac2; --muted-2:#726a92;
+    --grad:linear-gradient(135deg,#f0abfc 0%,#d8b4fe 20%,#b17cff 45%,#8b5cf6 70%,#6d28d9 100%);
+    --radius:18px;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
-    margin:0; background:var(--paper); color:var(--ink); font:16px/1.62 var(--sans);
+    margin:0; color:var(--text); overflow-x:hidden;
+    font:16px/1.6 "Inter","Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
     -webkit-font-smoothing:antialiased;
+    background-color:var(--bg);
     background-image:
-      radial-gradient(1100px 620px at 88% -12%, rgba(122,92,255,.13), transparent 62%),
-      radial-gradient(760px 520px at 4% 104%, rgba(74,43,214,.07), transparent 60%);
+      linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px),
+      radial-gradient(900px 520px at 12% -8%, rgba(139,92,246,.30), transparent 62%),
+      radial-gradient(760px 520px at 88% 0%, rgba(124,58,237,.24), transparent 60%),
+      radial-gradient(900px 700px at 50% 106%, rgba(109,40,217,.26), transparent 62%);
+    background-size:64px 64px, 64px 64px, auto, auto, auto;
+    background-repeat:repeat, repeat, no-repeat, no-repeat, no-repeat;
   }
   a{color:inherit; text-decoration:none}
   img{display:block; max-width:100%}
-  ::selection{background:var(--accent); color:#fff}
+  .wrap{width:100%; max-width:1120px; margin:0 auto; padding:0 24px}
+  .grad-text{background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
 
-  /* ---------- layout ---------- */
-  .shell{display:grid; grid-template-columns:var(--rail) minmax(0,1fr); min-height:100vh}
-  .rail{
-    position:sticky; top:0; height:100vh; z-index:20;
-    display:flex; flex-direction:column; gap:34px; overflow:auto;
-    padding:26px 22px 24px; border-right:1px solid var(--line);
-    background:linear-gradient(180deg,rgba(243,240,231,.96),rgba(243,240,231,.86));
-    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  /* ---------- nav ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    background:rgba(10,11,15,.72); border-bottom:1px solid rgba(255,255,255,.06);
   }
-  .mark{display:flex; align-items:center; gap:11px}
-  .mark img{width:30px; height:30px; border-radius:8px; box-shadow:0 6px 16px -8px rgba(74,43,214,.7)}
-  .mark b{font-family:var(--serif); font-size:21px; letter-spacing:-.02em; font-weight:700}
-  .mark em{
-    font-family:var(--mono); font-style:normal; font-size:10.5px; letter-spacing:.08em;
-    text-transform:uppercase; color:var(--muted); margin-left:auto;
-  }
-  .rail-nav{display:flex; flex-direction:column; gap:2px}
-  .rail-nav a{
-    display:flex; align-items:baseline; gap:10px; padding:8px 0;
-    color:var(--ink-2); border-bottom:1px solid transparent; transition:color .15s, border-color .15s;
-  }
-  .rail-nav a:hover{color:var(--ink); border-bottom-color:var(--line-2)}
-  .rail-nav i{
-    font-family:var(--mono); font-style:normal; font-size:10.5px; color:var(--muted);
-    min-width:18px;
-  }
-  .rail-nav span{font-size:14.5px}
-  .rail-foot{margin-top:auto; display:flex; flex-direction:column; gap:10px}
+  .nav-in{display:flex; align-items:center; gap:26px; height:64px}
+  .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:-.02em; font-size:18px}
+  .brand img{width:26px; height:26px; border-radius:7px}
+  .brand b{background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .nav-links{display:flex; gap:22px; margin-left:8px}
+  .nav-links a{color:var(--muted); font-size:14.5px; transition:color .15s}
+  .nav-links a:hover{color:var(--text)}
+  .nav-right{margin-left:auto; display:flex; align-items:center; gap:10px}
   .lang{
-    align-self:flex-start; font:inherit; font-family:var(--mono); font-size:11px; letter-spacing:.1em;
-    text-transform:uppercase; color:var(--ink-2); background:transparent;
-    border:1px solid var(--line-2); border-radius:999px; padding:7px 13px; cursor:pointer;
+    font:inherit; font-size:13px; font-weight:700; color:var(--muted);
+    background:transparent; border:1px solid var(--line); border-radius:10px;
+    padding:7px 11px; cursor:pointer; min-width:44px; transition:.15s;
   }
-  .lang:hover{border-color:var(--ink-2); color:var(--ink)}
+  .lang:hover{color:var(--text); border-color:var(--line-2)}
+
+  /* ---------- buttons ---------- */
   .btn{
     display:inline-flex; align-items:center; justify-content:center; gap:9px;
-    padding:13px 20px; border-radius:8px; font-weight:600; font-size:14.5px;
-    border:1px solid var(--ink); cursor:pointer; transition:transform .14s, background .14s, color .14s;
+    padding:13px 22px; border-radius:14px; font-weight:700; font-size:15px;
+    border:1px solid var(--line); color:var(--text); background:rgba(255,255,255,.04);
+    cursor:pointer; transition:transform .15s, border-color .15s, background .15s, box-shadow .2s;
+    white-space:nowrap; max-width:100%;
   }
-  .btn:hover{transform:translateY(-1px)}
-  .btn-fill{background:var(--ink); color:var(--paper); border-color:var(--ink)}
-  .btn-fill:hover{background:var(--accent); border-color:var(--accent); color:#fff}
-  .btn-line{background:transparent; color:var(--ink); border-color:var(--line-2)}
-  .btn-line:hover{border-color:var(--ink); background:rgba(22,22,15,.04)}
-  .btn svg{width:16px; height:16px; flex:none}
-  .rail .btn{width:100%}
-
-  main{padding:0 clamp(20px,5vw,76px); max-width:1160px; min-width:0}
+  .btn:hover{transform:translateY(-1px); border-color:var(--line-2); background:rgba(255,255,255,.07)}
+  .btn-sm{padding:9px 16px; font-size:14px; border-radius:11px}
+  .btn-primary{
+    position:relative; border:1px solid transparent;
+    background:
+      linear-gradient(var(--panel),var(--panel)) padding-box,
+      var(--grad) border-box;
+    box-shadow:0 12px 34px -16px rgba(168,85,247,.42);
+  }
+  .btn-primary:hover{background:linear-gradient(#161127,#161127) padding-box,var(--grad) border-box; box-shadow:0 18px 40px -18px rgba(124,58,237,.55)}
+  .btn-ghost{background:transparent}
+  .btn svg{width:17px; height:17px; flex:none}
+  .btn-note{display:block; font-size:12.5px; color:var(--muted-2); margin-top:10px}
 
   /* ---------- hero ---------- */
-  .hero{padding:78px 0 62px; border-bottom:1px solid var(--line)}
-  .kicker{
-    display:flex; align-items:center; gap:9px; margin:0 0 26px;
-    font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted);
+  .hero{padding:84px 0 64px; text-align:center}
+  .badge{
+    display:inline-flex; align-items:center; gap:9px; font-size:12.5px; font-weight:600;
+    letter-spacing:.04em; color:var(--muted); border:1px solid var(--line);
+    border-radius:999px; padding:7px 14px; margin-bottom:26px; background:rgba(255,255,255,.02);
   }
-  .kicker .dot{width:5px; height:5px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 3px rgba(74,43,214,.15)}
-  h1{
-    font-family:var(--serif); font-weight:700; letter-spacing:-.035em;
-    font-size:clamp(46px,8.2vw,104px); line-height:.94; margin:0 0 26px;
+  .dot{width:6px; height:6px; border-radius:50%; background:#a855f7; box-shadow:0 0 10px #a855f7}
+  .hero h1{
+    font-size:clamp(34px,6vw,64px); line-height:1.05; letter-spacing:-.035em;
+    margin:0 0 20px; font-weight:800;
   }
-  h1 .accent{display:block; font-style:italic; color:var(--accent); margin-top:2px}
-  .lede{max-width:52ch; color:var(--ink-2); font-size:clamp(15px,1.6vw,18px); margin:0 0 32px}
-  .actions{display:flex; flex-wrap:wrap; gap:12px; margin-bottom:46px}
-  .actions .btn{padding:15px 24px; font-size:15px}
-  .actions .note{
-    align-self:center; font-family:var(--mono); font-size:11.5px; color:var(--muted);
-    letter-spacing:.04em; margin-left:4px;
+  .hero h1 .thin{display:block; font-size:.52em; font-weight:700; color:var(--muted); letter-spacing:-.02em; margin-top:14px}
+  .hero p.lead{
+    max-width:660px; margin:0 auto 34px; color:var(--muted); font-size:clamp(15px,2vw,18px);
   }
-  .spec{
-    display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:0; margin:0;
-    border-top:1px solid var(--line-2); border-bottom:1px solid var(--line-2);
+  .hero-cta{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; align-items:flex-start; max-width:100%}
+  .cta-main{display:flex; flex-direction:column; align-items:center; max-width:100%}
+  .trust{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:10px 22px;
+    margin-top:36px; color:var(--muted-2); font-size:13px;
   }
-  .spec > div{padding:14px 18px 14px 0; border-right:1px solid var(--line)}
-  .spec > div:last-child{border-right:0; padding-right:0}
-  .spec dt{
-    font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
-    color:var(--muted); margin-bottom:5px;
-  }
-  .spec dd{margin:0; font-size:15px; font-weight:600}
+  .trust span{display:inline-flex; align-items:center; gap:7px}
+  .trust i{width:5px; height:5px; border-radius:50%; background:var(--muted-2); display:inline-block}
 
   /* ---------- sections ---------- */
-  .sec{padding:58px 0; border-top:1px solid var(--line)}
-  .sec:first-of-type{border-top:0}
-  .sec-head{display:flex; gap:22px; margin-bottom:38px; align-items:flex-start}
-  .sec-head .num{
-    font-family:var(--mono); font-size:11px; color:var(--accent); letter-spacing:.1em;
-    padding-top:9px; min-width:26px;
+  section{padding:76px 0}
+  .sec-head{max-width:720px; margin:0 0 40px}
+  .kicker{
+    font-size:12.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--muted-2); margin:0 0 12px;
   }
-  .sec-head h2{
-    font-family:var(--serif); font-weight:700; letter-spacing:-.03em;
-    font-size:clamp(28px,3.6vw,42px); line-height:1.06; margin:0 0 8px;
-  }
-  .sec-head p{margin:0; color:var(--ink-2); font-size:15px; max-width:56ch}
+  h2{font-size:clamp(24px,3.4vw,36px); line-height:1.15; letter-spacing:-.025em; margin:0 0 14px; font-weight:800}
+  .sec-head p{color:var(--muted); margin:0; font-size:16px}
 
   /* ---------- features ---------- */
-  .feat-list{list-style:none; margin:0; padding:0; counter-reset:f;
-    display:grid; grid-template-columns:1fr 1fr; grid-template-rows:repeat(5,auto);
-    grid-auto-flow:column; column-gap:56px}
-  .feat{
-    counter-increment:f; padding:18px 0 20px; border-top:1px solid var(--line);
-    display:grid; grid-template-columns:34px minmax(0,1fr); column-gap:6px; align-items:baseline;
+  .grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
+  .card{
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+    border:1px solid var(--line); border-radius:var(--radius); padding:24px 22px;
+    transition:border-color .18s, transform .18s, background .18s;
   }
-  .feat .idx{font-family:var(--mono); font-size:11px; color:var(--muted)}
-  .feat .idx::before{content:counter(f,decimal-leading-zero)}
-  .feat h3{grid-column:2; margin:0 0 6px; font-size:16.5px; letter-spacing:-.01em; font-weight:700}
-  .feat p{grid-column:2; margin:0; color:var(--ink-2); font-size:14.5px}
+  .card:hover{border-color:var(--line-2); transform:translateY(-2px); background:linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.02))}
+  .card .ico{
+    width:40px; height:40px; border-radius:12px; display:grid; place-items:center;
+    border:1px solid var(--line-2); background:rgba(255,255,255,.04); margin-bottom:16px;
+  }
+  .card .ico svg{width:20px; height:20px; stroke:#d6c8f6; fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round}
+  .card h3{font-size:16.5px; margin:0 0 8px; letter-spacing:-.01em}
+  .card p{margin:0; color:var(--muted); font-size:14.5px; line-height:1.55}
 
   /* ---------- screenshots ---------- */
-  .rail-shots{
-    display:flex; gap:18px; overflow-x:auto; padding:0 0 16px;
-    scroll-snap-type:x proximity; -webkit-overflow-scrolling:touch; min-width:0;
+  .shots{display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:start}
+  .shot{
+    margin:0; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;
+    background:var(--panel-2); display:flex; flex-direction:column;
   }
-  .rail-shots::-webkit-scrollbar{height:6px}
-  .rail-shots::-webkit-scrollbar-thumb{background:var(--line-2); border-radius:99px}
-  .shot{margin:0; flex:0 0 auto; scroll-snap-align:start; width:290px}
-  .shot img{
-    width:100%; height:auto; border:1px solid var(--line-2); border-radius:10px;
-    box-shadow:0 24px 48px -34px rgba(22,22,15,.55);
-  }
-  .shot.wide{width:520px}
+  .shot img{width:100%; height:auto; display:block}
+  .shot.wide{grid-column:1 / -1}
   .shot figcaption{
-    margin-top:10px; font-family:var(--mono); font-size:11px; letter-spacing:.06em;
-    text-transform:uppercase; color:var(--muted);
+    padding:12px 16px; font-size:13px; color:var(--muted);
+    border-top:1px solid var(--line); background:rgba(255,255,255,.02);
   }
 
   /* ---------- install ---------- */
-  .steps{list-style:none; margin:0; padding:0; counter-reset:s}
+  .steps{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; counter-reset:s}
   .step{
-    counter-increment:s; display:grid; grid-template-columns:64px minmax(0,1fr); gap:18px;
-    padding:22px 0; border-top:1px solid var(--line); align-items:start;
+    counter-increment:s; position:relative; padding:26px 22px 22px;
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+    border:1px solid var(--line); border-radius:var(--radius);
   }
   .step::before{
-    content:counter(s,decimal-leading-zero); font-family:var(--mono); font-size:26px;
-    color:var(--line-2); line-height:1;
+    content:counter(s); display:grid; place-items:center; width:30px; height:30px; border-radius:9px;
+    font-size:14px; font-weight:800; margin-bottom:14px;
+    border:1px solid var(--line-2); background:rgba(255,255,255,.05); color:var(--text);
   }
-  .step h3{font-size:16.5px; margin:0 0 6px; font-weight:700; letter-spacing:-.01em; grid-column:2}
-  .step p{margin:0; color:var(--ink-2); font-size:14.5px; max-width:62ch; grid-column:2}
+  .step h3{font-size:16px; margin:0 0 8px}
+  .step p{margin:0; color:var(--muted); font-size:14.5px}
   .step code{
-    font-family:var(--mono); font-size:12.5px; background:var(--paper-2);
-    border:1px solid var(--line); border-radius:5px; padding:1px 6px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:13px;
+    background:rgba(255,255,255,.06); border:1px solid var(--line); border-radius:6px; padding:1px 6px;
   }
-  .note-row{
-    margin-top:22px; padding:16px 18px; border:1px dashed var(--line-2); border-radius:10px;
-    color:var(--ink-2); font-size:14px;
+  .manual{
+    margin-top:18px; padding:18px 22px; border:1px dashed var(--line-2); border-radius:14px;
+    color:var(--muted); font-size:14px;
   }
-  .note-row b{color:var(--ink)}
-  .browsers{margin-top:14px; padding:20px 22px; border:1px solid var(--line); border-radius:10px; background:var(--paper-2)}
-  .browsers h3{font-size:15.5px; margin:0 0 6px}
-  .browsers > p{margin:0 0 14px; color:var(--ink-2); font-size:14px}
-  .browsers ul{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:7px}
+  .manual b{color:var(--text)}
+
+  .browsers{
+    margin-top:14px; padding:22px 24px; border:1px solid var(--line); border-radius:var(--radius);
+    background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012));
+  }
+  .browsers h3{font-size:16px; margin:0 0 6px}
+  .browsers > p{margin:0 0 16px; color:var(--muted); font-size:14.5px}
+  .browsers ul{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:8px}
   .browsers li{
     display:flex; align-items:center; justify-content:space-between; gap:10px;
-    padding:8px 11px; border:1px solid var(--line); border-radius:6px; background:var(--paper);
+    padding:9px 12px; border:1px solid var(--line); border-radius:10px; background:rgba(255,255,255,.025);
   }
   .browsers li span{font-size:13.5px}
-  .browsers code{font-family:var(--mono); font-size:12px; color:var(--muted)}
-  .browsers p:last-child{margin:14px 0 0; font-size:13px; color:var(--muted)}
+  .browsers code{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:12.5px; color:var(--muted);
+  }
+  .browsers p:last-child{margin:14px 0 0; font-size:13.5px; color:var(--muted-2)}
 
   /* ---------- faq ---------- */
-  .faq{max-width:78ch}
-  details{border-top:1px solid var(--line)}
-  details summary{
-    cursor:pointer; list-style:none; padding:18px 0; display:flex; align-items:center;
-    justify-content:space-between; gap:18px; font-size:16px; font-weight:600;
+  .faq{display:grid; gap:10px; max-width:820px}
+  details{
+    border:1px solid var(--line); border-radius:14px; padding:16px 20px;
+    background:rgba(255,255,255,.025); transition:border-color .15s;
   }
+  details[open]{border-color:var(--line-2); background:rgba(255,255,255,.04)}
+  details summary{cursor:pointer; font-weight:600; font-size:15.5px; list-style:none; display:flex; justify-content:space-between; gap:16px; align-items:center}
   details summary::-webkit-details-marker{display:none}
-  details summary::after{
-    content:"+"; font-family:var(--mono); font-size:16px; color:var(--muted); line-height:1;
-  }
+  details summary::after{content:"+"; color:var(--muted); font-size:18px; font-weight:700; line-height:1}
   details[open] summary::after{content:"–"}
-  details p{margin:0 0 20px; color:var(--ink-2); font-size:14.5px; max-width:64ch}
+  details p{margin:12px 0 0; color:var(--muted); font-size:14.5px}
 
   /* ---------- footer ---------- */
-  footer{
-    padding:34px 0 54px; border-top:1px solid var(--line-2);
-    display:flex; flex-wrap:wrap; gap:16px 28px; align-items:center; justify-content:space-between;
-    font-family:var(--mono); font-size:11.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted);
-  }
-  footer a:hover{color:var(--ink)}
-  footer .flinks{display:flex; gap:20px}
+  footer{border-top:1px solid var(--line); padding:44px 0 56px; margin-top:24px}
+  .foot-top{display:flex; flex-wrap:wrap; gap:22px; align-items:center; justify-content:space-between}
+  .foot-links{display:flex; flex-wrap:wrap; gap:18px; color:var(--muted); font-size:14px}
+  .foot-links a:hover{color:var(--text)}
+  .foot-bottom{margin-top:26px; color:var(--muted-2); font-size:13px; display:flex; flex-wrap:wrap; gap:10px 20px; justify-content:space-between}
 
-  /* ---------- responsive ---------- */
-  @media (max-width:1080px){
-    .feat-list{column-gap:36px}
+  @media (max-width:900px){
+    .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .nav-links{display:none}
   }
-  @media (max-width:960px){
-    .shell{grid-template-columns:minmax(0,1fr)}
-    .rail{
-      position:sticky; top:0; height:auto; flex-direction:row; align-items:center; gap:14px;
-      padding:12px 20px; border-right:0; border-bottom:1px solid var(--line);
-    }
-    .rail-nav{display:none}
-    .rail-foot{margin:0 0 0 auto; flex-direction:row; align-items:center; gap:10px}
-    .rail .btn{width:auto; padding:9px 14px; font-size:13.5px}
-    .mark em{display:none}
-    main{padding:0 20px}
-    .hero{padding:48px 0 44px}
-    .spec{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .spec > div:nth-child(2){border-right:0}
-    .spec > div:nth-child(-n+2){border-bottom:1px solid var(--line)}
-    .feat-list{grid-template-columns:1fr; grid-template-rows:none; grid-auto-flow:row}
-    .sec{padding:44px 0}
-    .sec-head{gap:14px}
-    .shot{width:250px}
-    .shot.wide{width:420px}
-    .step{grid-template-columns:44px minmax(0,1fr); gap:12px}
-    .step::before{font-size:20px}
-  }
-  @media (max-width:560px){
-    h1{font-size:clamp(40px,12vw,60px)}
-    .actions .note{width:100%; margin:0}
-    .shot{width:230px}
-    .shot.wide{width:320px}
+  @media (max-width:640px){
+    .grid{grid-template-columns:1fr}
+    .shots{grid-template-columns:1fr}
+    .btn{white-space:normal; text-align:center}
+    .trust{gap:8px 16px}
+    .trust i{display:none}
+    .hero{padding:56px 0 44px}
+    section{padding:56px 0}
   }
 </style>
 </head>
 <body>
 
-<div class="shell">
-
-  <aside class="rail">
-    <a class="mark" href="#top">
-      <img src="assets/icon.png?v=4" alt="UNI">
-      <b>UNI</b>
-      <em>plus</em>
-    </a>
-    <nav class="rail-nav">
-      <a href="#features"><i>01</i><span data-ru="Возможности" data-en="Features">Features</span></a>
-      <a href="#screens"><i>02</i><span data-ru="Скриншоты" data-en="Screenshots">Screenshots</span></a>
-      <a href="#install"><i>03</i><span data-ru="Установка" data-en="Install">Install</span></a>
-      <a href="#faq"><i>04</i><span data-ru="Вопросы" data-en="FAQ">FAQ</span></a>
-      <a href="https://t.me/UNI_EXT" target="_blank" rel="noopener"><i>↗</i><span>Telegram</span></a>
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top"><img src="assets/icon.png?v=3" alt="UNI"><span><b>UNI</b></span></a>
+    <nav class="nav-links">
+      <a href="#features" data-ru="Возможности" data-en="Features">Возможности</a>
+      <a href="#screens" data-ru="Скриншоты" data-en="Screenshots">Скриншоты</a>
+      <a href="#install" data-ru="Установка" data-en="Install">Установка</a>
+      <a href="#faq" data-ru="Вопросы" data-en="FAQ">Вопросы</a>
+      <a href="https://t.me/UNI_EXT" target="_blank" rel="noopener">Telegram</a>
     </nav>
-    <div class="rail-foot">
-      <button class="lang" id="lang" type="button" aria-label="Switch language">RU</button>
-      <a class="btn btn-fill" href="downloads/UNI-2.7.3-plus.zip" download>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
-        <span data-ru="Скачать" data-en="Download">Download</span>
-      </a>
+    <div class="nav-right">
+      <button class="lang" id="lang" type="button" aria-label="Switch language">EN</button>
+      <a class="btn btn-primary btn-sm" href="downloads/UNI-2.7.3-plus.zip" download data-ru="Скачать" data-en="Download">Скачать</a>
     </div>
-  </aside>
+  </div>
+</header>
 
-  <main id="top">
+<main id="top">
 
-    <header class="hero">
-      <p class="kicker"><span>Roblox extension</span><span class="dot"></span><span>v2.7.3-plus</span></p>
+  <div class="wrap">
+    <section class="hero">
+      <div class="badge"><span class="dot"></span><span data-ru="Навсегда бесплатно · открытый код" data-en="Forever free · open source">Навсегда бесплатно · открытый код</span></div>
       <h1>
-        <span data-ru="Roblox," data-en="Roblox,">Roblox,</span>
-        <span class="accent" data-ru="но лучше." data-en="but better.">but better.</span>
+        <span class="grad-text">UNI</span>
+        <span class="thin" data-ru="Roblox, но лучше" data-en="Roblox, but better">Roblox, но лучше</span>
       </h1>
-      <p class="lede" data-ru="Сборка plus: то, за что другие расширения для Roblox берут деньги, — бесплатно. Регион, серверы, трейды, профиль, шейдеры и десятки мелочей в одном архиве." data-en="The plus build: what other Roblox extensions charge for, for free. Region, servers, trades, profile, shaders and dozens of small fixes — in one archive.">The plus build: what other Roblox extensions charge for, for free. Region, servers, trades, profile, shaders and dozens of small fixes — in one archive.</p>
+      <p class="lead" data-ru="Расширение, которое бесплатно даёт то, за что другие расширения для Roblox берут деньги: выбор региона, список серверов, стоимость трейдов, рамки профиля и ещё десятки мелочей." data-en="The extension that gives you for free what other Roblox extensions charge for: region picker, server list, trade values, profile frames and dozens of quality-of-life fixes.">Расширение, которое бесплатно даёт то, за что другие расширения для Roblox берут деньги: выбор региона, список серверов, стоимость трейдов, рамки профиля и ещё десятки мелочей.</p>
 
-      <div class="actions">
-        <a class="btn btn-fill" href="downloads/UNI-2.7.3-plus.zip" download>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
-          <span data-ru="Скачать сборку plus" data-en="Download the plus build">Download the plus build</span>
-        </a>
-        <a class="btn btn-line" href="https://t.me/UNI_EXT" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m22 3-9.5 18-2.5-7.5L2 11 22 3Z"/><path d="M22 3 10 13.5"/></svg>
-          <span>Telegram</span>
-        </a>
-        <span class="note">UNI-2.7.3-plus.zip · 4.0 MB</span>
-      </div>
-
-      <dl class="spec">
-        <div><dt data-ru="Версия" data-en="Version">Version</dt><dd>2.7.3-plus</dd></div>
-        <div><dt data-ru="Размер" data-en="Size">Size</dt><dd>4.0 MB</dd></div>
-        <div><dt data-ru="Цена" data-en="Price">Price</dt><dd data-ru="бесплатно" data-en="free">free</dd></div>
-        <div><dt data-ru="Обновления" data-en="Updates">Updates</dt><dd>Telegram</dd></div>
-      </dl>
-    </header>
-
-    <section class="sec" id="features">
-      <div class="sec-head">
-        <span class="num">01</span>
-        <div>
-          <h2 data-ru="Возможности" data-en="Features">Features</h2>
-          <p data-ru="Каждая функция включается отдельно в настройках. Ничего не навязывается: поставил галочку — работает." data-en="Every feature has its own switch in the settings. Nothing is forced: tick it and it works.">Every feature has its own switch in the settings. Nothing is forced: tick it and it works.</p>
+      <div class="hero-cta">
+        <div class="cta-main">
+          <a class="btn btn-primary" href="downloads/UNI-2.7.3-plus.zip" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+            <span data-ru="Скачать сборку plus" data-en="Download the plus build">Скачать сборку plus</span>
+          </a>
+          <span class="btn-note" data-ru="v2.7.3-plus · 4.0 MB · бесплатно" data-en="v2.7.3-plus · 4.0 MB · free">v2.7.3-plus · 4.0 MB · бесплатно</span>
+        </div>
+        <div class="cta-main">
+          <a class="btn btn-ghost" href="https://t.me/UNI_EXT" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m22 3-9.5 18-2.5-7.5L2 11 22 3Z"/><path d="M22 3 10 13.5"/></svg>
+            <span>Telegram</span>
+          </a>
+          <span class="btn-note" data-ru="обновления и новости" data-en="updates and news">обновления и новости</span>
         </div>
       </div>
-      <ul class="feat-list">
-        <li class="feat"><span class="idx"></span>
-          <h3 data-ru="Выбор региона" data-en="Region picker">Region picker</h3>
-          <p data-ru="Карта дата-центров и пинг до каждого: заходи в ближайший сервер, а не в случайный." data-en="Datacenter map with ping to each one: join the closest server instead of a random one.">Datacenter map with ping to each one: join the closest server instead of a random one.</p></li>
-        <li class="feat"><span class="idx"></span>
-          <h3 data-ru="Список серверов" data-en="Server list">Server list</h3>
-          <p data-ru="Онлайн, версия и аптайм каждого сервера, фильтры и сортировка, переход в один клик." data-en="Online count, version and uptime for every server, filters, sorting, one-click join.">Online count, version and uptime for every server, filters, sorting, one-click join.</p></li>
-        <li class="feat"><span class="idx"></span>
-          <h3 data-ru="Стоимость трейдов" data-en="Trade values">Trade values</h3>
-          <p data-ru="RAP, вероятности и рыночная цена прямо в окне обмена — видно, переплачиваешь ты или нет." data-en="RAP, chances and market value right in the trade window — see whether you are overpaying.">RAP, chances and market value right in the trade window — see whether you are overpaying.</p></li>
-        <li class="feat"><span class="idx"></span>
-          <h3 data-ru="Профиль" data-en="Profile">Profile</h3>
-          <p data-ru="Рамки аватара, заметки, местоимения, скрытые игры и бейджи — профиль настраивается под себя." data-en="Avatar frames, notes, pronouns, hidden games and badges — make the profile yours.">Avatar frames, notes, pronouns, hidden games and badges — make the profile yours.</p></li>
-        <li class="feat"><span class="idx"></span>
-          <h3 data-ru="Друзья" data-en="Friends">Friends</h3>
-          <p data-ru="Метки на друзей, кто с кем в одной игре, детектор тех, кто снял тебя из друзей." data-en="Labels for friends, who is in the same game, a detector for those who unfriended you.">Labels for friends, who is in the same game, a detector for those who unfriended you.</p></li>
-        <li class="feat"><span class="idx"></span>
-          <h3 data-ru="Массовые действия" data-en="Bulk actions">Bulk actions</h3>
-          <p data-ru="Снять лайки с бейджей, выйти из групп, расфрендить всех — пачкой, а не по одному." data-en="Strip badge likes, leave groups, unfriend everyone — in bulk, not one by one.">Strip badge likes, leave groups, unfriend everyone — in bulk, not one by one.</p></li>
-        <li class="feat"><span class="idx"></span>
-          <h3 data-ru="Темы и оформление" data-en="Themes &amp; looks">Themes &amp; looks</h3>
-          <p data-ru="Светлая и тёмная темы, свои фоны, бесплатные темы Roblox Plus и старый интерфейс на выбор." data-en="Light and dark themes, custom backgrounds, free Roblox Plus themes and legacy UI on demand.">Light and dark themes, custom backgrounds, free Roblox Plus themes and legacy UI on demand.</p></li>
-        <li class="feat"><span class="idx"></span>
-          <h3 data-ru="Быстрый поиск" data-en="Quick search">Quick search</h3>
-          <p data-ru="Игроки, игры и друзья ищутся с клавиатуры по всему сайту, без перехода в разделы." data-en="Search players, games and friends from the keyboard, anywhere on the site.">Search players, games and friends from the keyboard, anywhere on the site.</p></li>
-        <li class="feat"><span class="idx"></span>
-          <h3 data-ru="Приватные серверы" data-en="Private servers">Private servers</h3>
-          <p data-ru="Массово включить или выключить серверы, скопировать ссылку, зайти по ближайшему региону." data-en="Bulk enable or disable servers, copy links, join through the closest region.">Bulk enable or disable servers, copy links, join through the closest region.</p></li>
-      </ul>
-    </section>
 
-    <section class="sec" id="screens">
-      <div class="sec-head">
-        <span class="num">02</span>
-        <div>
-          <h2 data-ru="Скриншоты" data-en="Screenshots">Screenshots</h2>
-          <p data-ru="Панель открывается с шапки Roblox и живёт рядом с игрой. Листай вбок." data-en="The panel opens from the Roblox header and lives next to the game. Scroll sideways.">The panel opens from the Roblox header and lives next to the game. Scroll sideways.</p>
-        </div>
-      </div>
-      <div class="rail-shots">
-        <figure class="shot"><img src="assets/servers.png?v=4" alt="UNI — servers panel" loading="lazy" width="360" height="500"><figcaption data-ru="Серверы: регион, онлайн" data-en="Servers: region, online">Servers: region, online</figcaption></figure>
-        <figure class="shot"><img src="assets/stats.png?v=4" alt="UNI — game stats" loading="lazy" width="360" height="500"><figcaption data-ru="Статистика игры" data-en="Game stats">Game stats</figcaption></figure>
-        <figure class="shot"><img src="assets/beta.png?v=4" alt="UNI — beta features" loading="lazy" width="360" height="640"><figcaption data-ru="Копирование игры, регион, шейдеры" data-en="Copy game, region, shaders">Copy game, region, shaders</figcaption></figure>
-        <figure class="shot"><img src="assets/ugc.png?v=4" alt="UNI — UGC item" loading="lazy" width="360" height="630"><figcaption data-ru="UGC: цены и Asset ID" data-en="UGC: prices and Asset ID">UGC: prices and Asset ID</figcaption></figure>
-        <figure class="shot wide"><img src="assets/region.png?v=4" alt="UNI — region picker" loading="lazy" width="900" height="620"><figcaption data-ru="Карта дата-центров" data-en="Datacenter map">Datacenter map</figcaption></figure>
+      <div class="trust">
+        <span>v2.7.3-plus</span><span><i></i><span data-ru="50+ функций" data-en="50+ features">50+ функций</span></span>
+        <span><i></i>GPL-3.0</span>
+        <span><i></i><span data-ru="Без подписок" data-en="No subscriptions">Без подписок</span></span>
       </div>
     </section>
+  </div>
 
-    <section class="sec" id="install">
+  <div class="wrap">
+    <section id="features">
       <div class="sec-head">
-        <span class="num">03</span>
-        <div>
-          <h2 data-ru="Установка" data-en="Install">Install</h2>
-          <p data-ru="Любой Chromium-браузер: Chrome, Edge, Opera, Brave, Vivaldi. Магазин не нужен." data-en="Any Chromium browser: Chrome, Edge, Opera, Brave, Vivaldi. No store needed.">Any Chromium browser: Chrome, Edge, Opera, Brave, Vivaldi. No store needed.</p>
+        <p class="kicker" data-ru="Возможности" data-en="Features">Возможности</p>
+        <h2 data-ru="Всё, что обычно просят за деньги — здесь бесплатно" data-en="Everything others charge for — here it's free">Всё, что обычно просят за деньги — здесь бесплатно</h2>
+        <p data-ru="Каждая функция включается отдельно в настройках. Ничего не навязывается: поставил галочку — работает." data-en="Every feature has its own switch in the settings. Nothing is forced: tick it and it works.">Каждая функция включается отдельно в настройках. Ничего не навязывается: поставил галочку — работает.</p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg></div>
+          <h3 data-ru="Выбор региона" data-en="Region picker">Выбор региона</h3>
+          <p data-ru="Карта дата-центров и пинг до каждого: заходи в ближайший сервер, а не в случайный." data-en="Datacenter map with ping to each one: join the closest server instead of a random one.">Карта дата-центров и пинг до каждого: заходи в ближайший сервер, а не в случайный.</p>
+        </article>
+        <article class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/><circle cx="18" cy="17" r="2.4"/></svg></div>
+          <h3 data-ru="Список серверов" data-en="Server list">Список серверов</h3>
+          <p data-ru="Онлайн, версия и аптайм каждого сервера, фильтры и сортировка, переход в один клик." data-en="Online count, version and uptime for every server, filters, sorting, one-click join.">Онлайн, версия и аптайм каждого сервера, фильтры и сортировка, переход в один клик.</p>
+        </article>
+        <article class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg></div>
+          <h3 data-ru="Стоимость трейдов" data-en="Trade values">Стоимость трейдов</h3>
+          <p data-ru="RAP, вероятности и рыночная цена прямо в окне обмена — видно, переплачиваешь ты или нет." data-en="RAP, chances and market value right in the trade window — see whether you are overpaying.">RAP, вероятности и рыночная цена прямо в окне обмена — видно, переплачиваешь ты или нет.</p>
+        </article>
+        <article class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg></div>
+          <h3 data-ru="Профиль" data-en="Profile">Профиль</h3>
+          <p data-ru="Рамки аватара, заметки, местоимения, скрытые игры и бейджи — профиль настраивается под себя." data-en="Avatar frames, notes, pronouns, hidden games and badges — make the profile yours.">Рамки аватара, заметки, местоимения, скрытые игры и бейджи — профиль настраивается под себя.</p>
+        </article>
+        <article class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c0-3.4 2.9-5.5 6.5-5.5s6.5 2.1 6.5 5.5"/><path d="M16.5 5.5a3 3 0 0 1 0 5.8M18 20c0-2.2-.7-3.7-2-4.7"/></svg></div>
+          <h3 data-ru="Друзья" data-en="Friends">Друзья</h3>
+          <p data-ru="Метки на друзей, кто с кем в одной игре, детектор тех, кто снял тебя из друзей." data-en="Labels for friends, who is in the same game, a detector for those who unfriended you.">Метки на друзей, кто с кем в одной игре, детектор тех, кто снял тебя из друзей.</p>
+        </article>
+        <article class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/><path d="M7 3v6M16 9v6M10 15v6"/></svg></div>
+          <h3 data-ru="Массовые действия" data-en="Bulk actions">Массовые действия</h3>
+          <p data-ru="Снять лайки с бейджей, выйти из групп, расфрендить всех — пачкой, а не по одному." data-en="Strip badge likes, leave groups, unfriend everyone — in bulk, not one by one.">Снять лайки с бейджей, выйти из групп, расфрендить всех — пачкой, а не по одному.</p>
+        </article>
+        <article class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.7 0 2.5-1 2.5-2 0-1.4-1.2-2-1.2-3.2 0-1 .8-1.8 2-1.8H18a3 3 0 0 0 3-3c0-4.4-4-8-9-8Z"/><circle cx="8" cy="9" r="1.2"/><circle cx="12" cy="7" r="1.2"/><circle cx="16" cy="9" r="1.2"/></svg></div>
+          <h3 data-ru="Темы и оформление" data-en="Themes &amp; looks">Темы и оформление</h3>
+          <p data-ru="Светлая и тёмная темы, свои фоны, бесплатные темы Roblox Plus и старый интерфейс на выбор." data-en="Light and dark themes, custom backgrounds, free Roblox Plus themes and legacy UI on demand.">Светлая и тёмная темы, свои фоны, бесплатные темы Roblox Plus и старый интерфейс на выбор.</p>
+        </article>
+        <article class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg></div>
+          <h3 data-ru="Быстрый поиск" data-en="Quick search">Быстрый поиск</h3>
+          <p data-ru="Игроки, игры и друзья ищутся с клавиатуры по всему сайту, без перехода в разделы." data-en="Search players, games and friends from the keyboard, anywhere on the site.">Игроки, игры и друзья ищутся с клавиатуры по всему сайту, без перехода в разделы.</p>
+        </article>
+        <article class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg></div>
+          <h3 data-ru="Приватные серверы" data-en="Private servers">Приватные серверы</h3>
+          <p data-ru="Массово включить или выключить серверы, скопировать ссылку, зайти по ближайшему региону." data-en="Bulk enable or disable servers, copy links, join through the closest region.">Массово включить или выключить серверы, скопировать ссылку, зайти по ближайшему региону.</p>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section id="screens">
+      <div class="sec-head">
+        <p class="kicker" data-ru="Скриншоты" data-en="Screenshots">Скриншоты</p>
+        <h2 data-ru="Так это выглядит в деле" data-en="How it looks in action">Так это выглядит в деле</h2>
+        <p data-ru="Панель UNI открывается с шапки Roblox и живёт рядом с игрой — отдельного окна не нужно." data-en="The UNI panel opens from the Roblox header and lives next to the game — no extra window.">Панель UNI открывается с шапки Roblox и живёт рядом с игрой — отдельного окна не нужно.</p>
+      </div>
+      <div class="shots">
+        <figure class="shot tall"><img src="assets/servers.png?v=3" alt="UNI — панель серверов" loading="lazy" width="360" height="500"><figcaption data-ru="Серверы: регион, онлайн, переход" data-en="Servers: region, online, join">Серверы: регион, онлайн, переход</figcaption></figure>
+        <figure class="shot tall"><img src="assets/stats.png?v=3" alt="UNI — статистика игры" loading="lazy" width="360" height="500"><figcaption data-ru="Статистика игры и сохранённые игры" data-en="Game stats and saved games">Статистика игры и сохранённые игры</figcaption></figure>
+        <figure class="shot tall"><img src="assets/beta.png?v=3" alt="UNI — бета-функции: копирование игры, смена региона, шейдеры" loading="lazy" width="360" height="640"><figcaption data-ru="Бета-функции: копирование игры, смена региона, шейдеры" data-en="Beta features: copy game, change region, shaders">Бета-функции: копирование игры, смена региона, шейдеры</figcaption></figure>
+        <figure class="shot tall"><img src="assets/ugc.png?v=3" alt="UNI — UGC-предмет: цены и копирование Asset ID" loading="lazy" width="360" height="630"><figcaption data-ru="UGC-предмет: цены, RAP и копирование Asset ID" data-en="UGC item: prices, RAP and Asset ID copy">UGC-предмет: цены, RAP и копирование Asset ID</figcaption></figure>
+        <figure class="shot wide"><img src="assets/region.png?v=3" alt="UNI — выбор региона" loading="lazy" width="900" height="620"><figcaption data-ru="Выбор региона: карта дата-центров" data-en="Region picker: datacenter map">Выбор региона: карта дата-центров</figcaption></figure>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section id="install">
+      <div class="sec-head">
+        <p class="kicker" data-ru="Установка" data-en="Install">Установка</p>
+        <h2 data-ru="Четыре шага — и готово" data-en="Four steps and you're set">Четыре шага — и готово</h2>
+        <p data-ru="Работает в любом Chromium-браузере: Chrome, Edge, Opera, Brave, Vivaldi. Магазин не нужен — ставится распакованным." data-en="Works in any Chromium browser: Chrome, Edge, Opera, Brave, Vivaldi. No store needed — it loads unpacked.">Работает в любом Chromium-браузере: Chrome, Edge, Opera, Brave, Vivaldi. Магазин не нужен — ставится распакованным.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <h3 data-ru="Скачать архив" data-en="Download the archive">Скачать архив</h3>
+          <p data-ru="Кнопка «Скачать сборку plus» отдаёт UNI-2.7.3-plus.zip." data-en="The “Download the plus build” button gives you UNI-2.7.3-plus.zip.">Кнопка «Скачать сборку plus» отдаёт UNI-2.7.3-plus.zip.</p>
+        </div>
+        <div class="step">
+          <h3 data-ru="Распаковать" data-en="Unpack it">Распаковать</h3>
+          <p data-ru="Распакуй архив в отдельную папку — из самого архива браузер расширение не подхватит." data-en="Extract it into its own folder — the browser won't load it from inside the zip.">Распакуй архив в отдельную папку — из самого архива браузер расширение не подхватит.</p>
+        </div>
+        <div class="step">
+          <h3 data-ru="Загрузить в браузер" data-en="Load into the browser">Загрузить в браузер</h3>
+          <p data-ru="Открой chrome://extensions, включи «Режим разработчика» и нажми «Загрузить распакованное»." data-en="Open chrome://extensions, turn on “Developer mode” and click “Load unpacked”.">Открой chrome://extensions, включи «Режим разработчика» и нажми «Загрузить распакованное».</p>
+        </div>
+        <div class="step">
+          <h3 data-ru="Открыть Roblox" data-en="Open Roblox">Открыть Roblox</h3>
+          <p data-ru="Зайди на roblox.com: панель UNI в шапке сайта, настройки — под шестерёнкой." data-en="Go to roblox.com: the UNI panel sits in the site header, settings under the gear icon.">Зайди на roblox.com: панель UNI в шапке сайта, настройки — под шестерёнкой.</p>
         </div>
       </div>
-      <ol class="steps">
-        <li class="step">
-          <h3 data-ru="Скачать архив" data-en="Download the archive">Download the archive</h3>
-          <p data-ru="Кнопка «Скачать сборку plus» отдаёт UNI-2.7.3-plus.zip." data-en="The “Download the plus build” button gives you UNI-2.7.3-plus.zip.">The “Download the plus build” button gives you UNI-2.7.3-plus.zip.</p>
-        </li>
-        <li class="step">
-          <h3 data-ru="Распаковать" data-en="Unpack it">Unpack it</h3>
-          <p data-ru="В отдельную папку — из архива браузер расширение не подхватит." data-en="Into its own folder — the browser won't load it from inside the zip.">Into its own folder — the browser won't load it from inside the zip.</p>
-        </li>
-        <li class="step">
-          <h3 data-ru="Загрузить в браузер" data-en="Load into the browser">Load into the browser</h3>
-          <p><span data-ru="Открой " data-en="Open ">Open </span><code>chrome://extensions</code><span data-ru=" и нажми «Загрузить распакованное»." data-en=" and click “Load unpacked”."> and click “Load unpacked”.</span></p>
-        </li>
-        <li class="step">
-          <h3 data-ru="Открыть Roblox" data-en="Open Roblox">Open Roblox</h3>
-          <p data-ru="Панель UNI в шапке сайта, настройки — под шестерёнкой." data-en="The UNI panel sits in the site header, settings under the gear icon.">The UNI panel sits in the site header, settings under the gear icon.</p>
-        </li>
-      </ol>
-
-      <div class="note-row">
-        <b data-ru="Chrome предупредит" data-en="Chrome will warn">Chrome will warn</b>
-        <span data-ru=", что расширение не из магазина — для ручной установки это обычное дело, включать можно." data-en=" that the extension isn't from the store — normal for a manual install, you can enable it."> that the extension isn't from the store — normal for a manual install, you can enable it.</span>
+      <div class="manual">
+        <b data-ru="Chrome предупредит" data-en="Chrome will warn">Chrome предупредит</b>
+        <span data-ru=", что расширение не из магазина — для ручной установки это обычное дело, включать можно." data-en=" that the extension isn't from the store — normal for a manual install, you can enable it.">, что расширение не из магазина — для ручной установки это обычное дело, включать можно.</span>
       </div>
 
       <div class="browsers">
-        <h3 data-ru="Другой браузер?" data-en="Using a different browser?">Using a different browser?</h3>
-        <p data-ru="Шаги те же, меняется только адрес страницы расширений:" data-en="Same steps, only the extensions page address changes:">Same steps, only the extensions page address changes:</p>
+        <h3 data-ru="Другой браузер?" data-en="Using a different browser?">Другой браузер?</h3>
+        <p data-ru="Шаги те же, меняется только адрес страницы расширений:" data-en="Same steps, only the extensions page address changes:">Шаги те же, меняется только адрес страницы расширений:</p>
         <ul>
           <li><span>Chrome</span><code>chrome://extensions</code></li>
           <li><span>Edge</span><code>edge://extensions</code></li>
           <li><span>Brave</span><code>brave://extensions</code></li>
           <li><span>Opera</span><code>opera://extensions</code></li>
           <li><span>Vivaldi</span><code>vivaldi://extensions</code></li>
-          <li><span data-ru="Остальные" data-en="Any other">Any other</span><code data-ru="на Chromium" data-en="Chromium-based">Chromium-based</code></li>
+          <li><span data-ru="Остальные" data-en="Any other">Остальные</span><code data-ru="на Chromium" data-en="Chromium-based">на Chromium</code></li>
         </ul>
-        <p data-ru="Firefox и Safari расширения Chrome не запускают — там сборка не заработает." data-en="Firefox and Safari don't run Chrome extensions — the build won't work there.">Firefox and Safari don't run Chrome extensions — the build won't work there.</p>
+        <p data-ru="Firefox и Safari расширения Chrome не запускают — там сборка не заработает." data-en="Firefox and Safari don't run Chrome extensions — the build won't work there.">Firefox и Safari расширения Chrome не запускают — там сборка не заработает.</p>
       </div>
     </section>
+  </div>
 
-    <section class="sec" id="faq">
+  <div class="wrap">
+    <section id="faq">
       <div class="sec-head">
-        <span class="num">04</span>
-        <div>
-          <h2 data-ru="Вопросы" data-en="FAQ">FAQ</h2>
-          <p data-ru="Коротко о главном." data-en="Short answers.">Short answers.</p>
-        </div>
+        <p class="kicker">FAQ</p>
+        <h2 data-ru="Частые вопросы" data-en="Frequently asked">Частые вопросы</h2>
       </div>
       <div class="faq">
         <details open>
-          <summary data-ru="Это правда бесплатно?" data-en="Is it really free?">Is it really free?</summary>
-          <p data-ru="Да. Все функции расширения бесплатны, без подписки и платных уровней. Проект живёт на пожертвования: часть функций вроде выбора региона требует серверов, а они стоят денег." data-en="Yes. Every feature is free, with no subscription and no paid tiers. The project runs on donations: features like the region picker need servers, and servers cost money.">Yes. Every feature is free, with no subscription and no paid tiers. The project runs on donations: features like the region picker need servers, and servers cost money.</p>
+          <summary data-ru="Это правда бесплатно?" data-en="Is it really free?">Это правда бесплатно?</summary>
+          <p data-ru="Да. Все функции расширения бесплатны, без подписки и платных уровней. Проект живёт на пожертвования: часть функций вроде выбора региона требует серверов, а они стоят денег." data-en="Yes. Every feature is free, with no subscription and no paid tiers. The project runs on donations: features like the region picker need servers, and servers cost money.">Да. Все функции расширения бесплатны, без подписки и платных уровней. Проект живёт на пожертвования: часть функций вроде выбора региона требует серверов, а они стоят денег.</p>
         </details>
         <details>
-          <summary data-ru="Почему не из Chrome Web Store?" data-en="Why not from the Chrome Web Store?">Why not from the Chrome Web Store?</summary>
-          <p data-ru="Сборка plus выходит архивом, без модерации магазина: обновления появляются сразу, и никто не застревает на старой версии. Ставится вручную — через «Загрузить распакованное»." data-en="The plus build ships as an archive, without store review: updates land immediately and nobody gets stuck on an old version. It installs manually via “Load unpacked”.">The plus build ships as an archive, without store review: updates land immediately and nobody gets stuck on an old version. It installs manually via “Load unpacked”.</p>
+          <summary data-ru="Почему не из Chrome Web Store?" data-en="Why not from the Chrome Web Store?">Почему не из Chrome Web Store?</summary>
+          <p data-ru="Сборка plus выходит архивом, без модерации магазина: обновления появляются сразу, и никто не застревает на старой версии. Ставится вручную — через «Загрузить распакованное»." data-en="The plus build ships as an archive, without store review: updates land immediately and nobody gets stuck on an old version. It installs manually via “Load unpacked”.">Сборка plus выходит архивом, без модерации магазина: обновления появляются сразу, и никто не застревает на старой версии. Ставится вручную — через «Загрузить распакованное».</p>
         </details>
         <details>
-          <summary data-ru="Это безопасно?" data-en="Is it safe?">Is it safe?</summary>
-          <p data-ru="В манифесте разрешения ограничены доменами Roblox и загрузками файлов — доступа к другим сайтам расширение не просит. Chrome один раз предупредит, что сборка не из магазина: для ручной установки это ожидаемо." data-en="The manifest only asks for Roblox domains and file downloads — no access to other sites. Chrome warns once that the build isn't from the store: expected for a manual install.">The manifest only asks for Roblox domains and file downloads — no access to other sites. Chrome warns once that the build isn't from the store: expected for a manual install.</p>
+          <summary data-ru="Это безопасно?" data-en="Is it safe?">Это безопасно?</summary>
+          <p data-ru="В манифесте разрешения ограничены доменами Roblox и загрузками файлов — доступа к другим сайтам расширение не просит. Chrome один раз предупредит, что сборка не из магазина: для ручной установки это ожидаемо." data-en="The manifest only asks for Roblox domains and file downloads — no access to other sites. Chrome warns once that the build isn't from the store: expected for a manual install.">В манифесте разрешения ограничены доменами Roblox и загрузками файлов — доступа к другим сайтам расширение не просит. Chrome один раз предупредит, что сборка не из магазина: для ручной установки это ожидаемо.</p>
         </details>
         <details>
-          <summary data-ru="Куда писать о баге?" data-en="Where to report a bug?">Where to report a bug?</summary>
-          <p data-ru="В Telegram-канале — ссылка в шапке и подвале сайта. Туда же приходят новости об обновлениях." data-en="The Telegram channel — link in the header and footer. Updates are announced there too.">The Telegram channel — link in the header and footer. Updates are announced there too.</p>
+          <summary data-ru="Куда писать о баге?" data-en="Where to report a bug?">Куда писать о баге?</summary>
+          <p data-ru="В Telegram-канале — ссылка в шапке и подвале сайта. Туда же приходят новости об обновлениях." data-en="The Telegram channel — link in the header and footer. Updates are announced there too.">В Telegram-канале — ссылка в шапке и подвале сайта. Туда же приходят новости об обновлениях.</p>
         </details>
       </div>
     </section>
+  </div>
 
-    <footer>
-      <span>© 2026 UNI — <span data-ru="не связано с Roblox Corporation" data-en="not affiliated with Roblox Corporation">not affiliated with Roblox Corporation</span></span>
-      <span class="flinks">
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <a class="brand" href="#top"><img src="assets/icon.png?v=3" alt="UNI"><span><b>UNI</b></span></a>
+      <nav class="foot-links">
         <a href="https://t.me/UNI_EXT" target="_blank" rel="noopener">Telegram</a>
-        <a href="downloads/UNI-2.7.3-plus.zip" download data-ru="Скачать" data-en="Download">Download</a>
-        <span>GPL-3.0 · v2.7.3-plus</span>
-      </span>
-    </footer>
-
-  </main>
-</div>
+        <a href="downloads/UNI-2.7.3-plus.zip" download data-ru="Скачать" data-en="Download">Скачать</a>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      <span data-ru="© 2026 UNI. Расширение не связано с Roblox Corporation." data-en="© 2026 UNI. Not affiliated with Roblox Corporation.">© 2026 UNI. Расширение не связано с Roblox Corporation.</span>
+      <span>GPL-3.0 · v2.7.3-plus</span>
+    </div>
+  </div>
+</footer>
 
 <script>
 (function(){
