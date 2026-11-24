@@ -43,7 +43,8 @@ GitHub Pages настроен на `main` / `/` — изменения выка�
 ## Ссылки
 
 - Telegram проекта: `https://t.me/UNI_EXT` (шапка, hero, подвал, FAQ).
-- Chrome Web Store и GitHub на странице намеренно не используются.
+- В подвале остались только Telegram и «Скачать»: Chrome Web Store, GitHub, Discord
+  и донат на странице намеренно не используются.
 
 ## Язык
 

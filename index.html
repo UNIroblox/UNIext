@@ -178,6 +178,23 @@
   }
   .manual b{color:var(--text)}
 
+  .browsers{
+    margin-top:14px; padding:22px 24px; border:1px solid var(--line); border-radius:var(--radius);
+    background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012));
+  }
+  .browsers h3{font-size:16px; margin:0 0 6px}
+  .browsers > p{margin:0 0 16px; color:var(--muted); font-size:14.5px}
+  .browsers ul{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:8px}
+  .browsers li{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:9px 12px; border:1px solid var(--line); border-radius:10px; background:rgba(255,255,255,.025);
+  }
+  .browsers li span{font-size:13.5px}
+  .browsers code{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:12.5px; color:var(--muted);
+  }
+  .browsers p:last-child{margin:14px 0 0; font-size:13.5px; color:var(--muted-2)}
+
   /* ---------- faq ---------- */
   .faq{display:grid; gap:10px; max-width:820px}
   details{
@@ -336,8 +353,10 @@
         <p data-ru="Панель UNI открывается с шапки Roblox и живёт рядом с игрой — отдельного окна не нужно." data-en="The UNI panel opens from the Roblox header and lives next to the game — no extra window.">Панель UNI открывается с шапки Roblox и живёт рядом с игрой — отдельного окна не нужно.</p>
       </div>
       <div class="shots">
-        <figure class="shot tall"><img src="assets/servers.png" alt="UNI — панель серверов" loading="lazy" width="360" height="470"><figcaption data-ru="Серверы: регион, онлайн, переход" data-en="Servers: region, online, join">Серверы: регион, онлайн, переход</figcaption></figure>
+        <figure class="shot tall"><img src="assets/servers.png" alt="UNI — панель серверов" loading="lazy" width="360" height="500"><figcaption data-ru="Серверы: регион, онлайн, переход" data-en="Servers: region, online, join">Серверы: регион, онлайн, переход</figcaption></figure>
         <figure class="shot tall"><img src="assets/stats.png" alt="UNI — статистика игры" loading="lazy" width="360" height="500"><figcaption data-ru="Статистика игры и сохранённые игры" data-en="Game stats and saved games">Статистика игры и сохранённые игры</figcaption></figure>
+        <figure class="shot tall"><img src="assets/beta.png" alt="UNI — бета-функции: копирование игры, смена региона, шейдеры" loading="lazy" width="360" height="640"><figcaption data-ru="Бета-функции: копирование игры, смена региона, шейдеры" data-en="Beta features: copy game, change region, shaders">Бета-функции: копирование игры, смена региона, шейдеры</figcaption></figure>
+        <figure class="shot tall"><img src="assets/ugc.png" alt="UNI — UGC-предмет: цены и копирование Asset ID" loading="lazy" width="360" height="630"><figcaption data-ru="UGC-предмет: цены, RAP и копирование Asset ID" data-en="UGC item: prices, RAP and Asset ID copy">UGC-предмет: цены, RAP и копирование Asset ID</figcaption></figure>
         <figure class="shot wide"><img src="assets/region.png" alt="UNI — выбор региона" loading="lazy" width="900" height="620"><figcaption data-ru="Выбор региона: карта дата-центров" data-en="Region picker: datacenter map">Выбор региона: карта дата-центров</figcaption></figure>
       </div>
     </section>
@@ -372,6 +391,20 @@
         <b data-ru="Chrome предупредит" data-en="Chrome will warn">Chrome предупредит</b>
         <span data-ru=", что расширение не из магазина — для ручной установки это обычное дело, включать можно." data-en=" that the extension isn't from the store — normal for a manual install, you can enable it.">, что расширение не из магазина — для ручной установки это обычное дело, включать можно.</span>
       </div>
+
+      <div class="browsers">
+        <h3 data-ru="Другой браузер?" data-en="Using a different browser?">Другой браузер?</h3>
+        <p data-ru="Шаги те же, меняется только адрес страницы расширений:" data-en="Same steps, only the extensions page address changes:">Шаги те же, меняется только адрес страницы расширений:</p>
+        <ul>
+          <li><span>Chrome</span><code>chrome://extensions</code></li>
+          <li><span>Edge</span><code>edge://extensions</code></li>
+          <li><span>Brave</span><code>brave://extensions</code></li>
+          <li><span>Opera</span><code>opera://extensions</code></li>
+          <li><span>Vivaldi</span><code>vivaldi://extensions</code></li>
+          <li><span data-ru="Остальные" data-en="Any other">Остальные</span><code data-ru="на Chromium" data-en="Chromium-based">на Chromium</code></li>
+        </ul>
+        <p data-ru="Firefox и Safari расширения Chrome не запускают — там сборка не заработает." data-en="Firefox and Safari don't run Chrome extensions — the build won't work there.">Firefox и Safari расширения Chrome не запускают — там сборка не заработает.</p>
+      </div>
     </section>
   </div>
 
@@ -395,10 +428,6 @@
           <p data-ru="В манифесте разрешения ограничены доменами Roblox и загрузками файлов — доступа к другим сайтам расширение не просит. Chrome один раз предупредит, что сборка не из магазина: для ручной установки это ожидаемо." data-en="The manifest only asks for Roblox domains and file downloads — no access to other sites. Chrome warns once that the build isn't from the store: expected for a manual install.">В манифесте разрешения ограничены доменами Roblox и загрузками файлов — доступа к другим сайтам расширение не просит. Chrome один раз предупредит, что сборка не из магазина: для ручной установки это ожидаемо.</p>
         </details>
         <details>
-          <summary data-ru="Зачем тогда донаты?" data-en="Why donations, then?">Зачем тогда донаты?</summary>
-          <p data-ru="Серверная часть — карта регионов и подбор сервера — это реальные расходы на хостинг и API. Донаты покрывают их, чтобы расширение оставалось бесплатным для всех." data-en="The backend — region map and server lookup — is real hosting and API cost. Donations cover it so the extension stays free for everyone.">Серверная часть — карта регионов и подбор сервера — это реальные расходы на хостинг и API. Донаты покрывают их, чтобы расширение оставалось бесплатным для всех.</p>
-        </details>
-        <details>
           <summary data-ru="Куда писать о баге?" data-en="Where to report a bug?">Куда писать о баге?</summary>
           <p data-ru="В Telegram-канале — ссылка в шапке и подвале сайта. Туда же приходят новости об обновлениях." data-en="The Telegram channel — link in the header and footer. Updates are announced there too.">В Telegram-канале — ссылка в шапке и подвале сайта. Туда же приходят новости об обновлениях.</p>
         </details>
@@ -414,8 +443,6 @@
       <a class="brand" href="#top"><img src="assets/icon.png" alt="UNI"><span><b>UNI</b></span></a>
       <nav class="foot-links">
         <a href="https://t.me/UNI_EXT" target="_blank" rel="noopener">Telegram</a>
-        <a href="https://discord.gg/GHd5cSKJRk" target="_blank" rel="noopener">Discord</a>
-        <a href="https://www.roblox.com/games/store-section/9452973012" target="_blank" rel="noopener" data-ru="Поддержать" data-en="Donate">Поддержать</a>
         <a href="downloads/UNI-2.7.3-plus.zip" download data-ru="Скачать" data-en="Download">Скачать</a>
       </nav>
     </div>
