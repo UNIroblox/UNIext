@@ -12,13 +12,14 @@
 <meta property="og:description" content="Сборка plus: бесплатно, без подписок и пейволлов. Скачивание архивом, обновления в Telegram.">
 <meta property="og:image" content="https://uniroblox.github.io/UNIext/assets/region.png?v=5">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="assets/icon.png?v=5" type="image/png">
-<link rel="apple-touch-icon" href="assets/icon.png?v=5">
+<link rel="icon" href="assets/favicon.png?v=6" type="image/png" sizes="any">
+<link rel="apple-touch-icon" href="assets/favicon.png?v=6">
 <style>
   :root{
     --bg:#050507; --panel:#0b0b12; --panel-2:#070709; --line:#1d1d29; --line-2:#2f2f40;
     --text:#f1edf4; --muted:#a49aa6; --muted-2:#756b76;
     --grad:linear-gradient(118deg,#4a35ff 0%,#8a1ce0 26%,#cf1395 48%,#f52c3f 70%,#ff8a2b 88%,#ffd45a 100%);
+    --btn-grad:linear-gradient(100deg,#3b2bd6 0%,#5320e2 16%,#7818d4 32%,#9c14b4 48%,#bd1389 64%,#d8185f 80%,#ea2a44 93%,#f2402c 100%);
     --radius:18px;
   }
   *{box-sizing:border-box}
@@ -47,7 +48,14 @@
     transform:skewX(-6deg); transform-origin:center bottom;
     filter:drop-shadow(.42em .5em .55em rgba(0,0,0,.75));
   }
-  .logo3d .l3d{position:absolute; left:0; top:0; color:#1b0d4a; white-space:nowrap; pointer-events:none}
+  .logo3d .l3d-back{
+    position:absolute; left:0; top:0; color:#2a1663; white-space:nowrap; pointer-events:none;
+    text-shadow:
+      .008em .008em 0 #2a1663, .016em .016em 0 #26145b, .024em .024em 0 #221253,
+      .032em .032em 0 #1e104b, .040em .040em 0 #1a0e43, .048em .048em 0 #170c3b,
+      .056em .056em 0 #140a33, .064em .064em 0 #11072b,
+      .3em .34em .5em rgba(0,0,0,.85);
+  }
   .logo3d .l3d-face{
     position:relative; display:block;
     background:linear-gradient(118deg,#4a35ff 0%,#8a1ce0 26%,#cf1395 48%,#f52c3f 70%,#ff8a2b 88%,#ffd45a 100%);
@@ -121,11 +129,11 @@
   .btn-sm{padding:9px 16px; font-size:14px; border-radius:11px}
   .btn-primary{
     position:relative; border:1px solid transparent; color:#170c2b;
-    background:var(--grad);
+    background:var(--btn-grad);
     box-shadow:0 14px 36px -16px rgba(207,19,149,.65), inset 0 1px 0 rgba(255,255,255,.45);
   }
   .btn-primary:hover{
-    color:#120821; border-color:transparent; background:var(--grad); filter:brightness(1.07);
+    color:#120821; border-color:transparent; background:var(--btn-grad); filter:brightness(1.07);
     box-shadow:0 20px 44px -16px rgba(245,44,63,.8), inset 0 1px 0 rgba(255,255,255,.55);
   }
   .btn-primary svg{stroke-width:2}
@@ -165,17 +173,25 @@
     font-size:12.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
     color:var(--muted-2); margin:0 0 12px;
   }
-  h2{font-size:clamp(24px,3.4vw,36px); line-height:1.15; letter-spacing:-.025em; margin:0 0 14px; font-weight:800}
+  h2{display:inline-block; font-size:clamp(24px,3.4vw,36px); line-height:1.15; letter-spacing:-.025em; margin:0 0 14px; font-weight:800;
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
   .sec-head p{color:var(--muted); margin:0; font-size:16px}
 
   /* ---------- features ---------- */
   .grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
   .card{
-    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+    background:
+      radial-gradient(130% 90% at 50% -35%, rgba(122,23,216,.20), transparent 62%),
+      linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.012));
     border:1px solid var(--line); border-radius:var(--radius); padding:24px 22px;
-    transition:border-color .18s, transform .18s, background .18s;
+    transition:border-color .22s, transform .22s, background .22s;
   }
-  .card:hover{border-color:var(--line-2); transform:translateY(-2px); background:linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.02))}
+  .card:hover{
+    border-color:var(--line-2); transform:translateY(-3px);
+    background:
+      radial-gradient(130% 90% at 50% -35%, rgba(245,44,63,.24), transparent 62%),
+      linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+  }
   .card .ico{
     width:40px; height:40px; border-radius:12px; display:grid; place-items:center;
     border:1px solid var(--line-2); background:rgba(255,255,255,.04); margin-bottom:16px;
@@ -200,11 +216,29 @@
   }
 
   /* ---------- install ---------- */
+  #install{position:relative}
+  #install::before{
+    content:""; position:absolute; left:-28px; right:-28px; top:12px; bottom:-8px; z-index:-1;
+    border-radius:30px; pointer-events:none;
+    background:
+      radial-gradient(120% 120% at 12% 0%, rgba(74,53,255,.14), transparent 62%),
+      radial-gradient(100% 120% at 92% 6%, rgba(245,44,63,.12), transparent 62%),
+      linear-gradient(180deg,rgba(255,255,255,.022),rgba(255,255,255,0));
+  }
   .steps{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; counter-reset:s}
   .step{
     counter-increment:s; position:relative; padding:26px 22px 22px;
-    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+    background:
+      radial-gradient(120% 90% at 50% -40%, rgba(122,23,216,.18), transparent 60%),
+      linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.012));
     border:1px solid var(--line); border-radius:var(--radius);
+    transition:border-color .22s, transform .22s, background .22s;
+  }
+  .step:hover{
+    border-color:var(--line-2); transform:translateY(-3px);
+    background:
+      radial-gradient(120% 90% at 50% -40%, rgba(245,44,63,.20), transparent 60%),
+      linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
   }
   .step::before{
     content:counter(s); display:grid; place-items:center; width:30px; height:30px; border-radius:9px;
@@ -225,18 +259,23 @@
 
   .browsers{
     margin-top:14px; padding:22px 24px; border:1px solid var(--line); border-radius:var(--radius);
-    background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012));
+    background:
+      radial-gradient(120% 110% at 82% -20%, rgba(122,23,216,.16), transparent 60%),
+      linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));
   }
   .browsers h3{font-size:16px; margin:0 0 6px}
   .browsers > p{margin:0 0 16px; color:var(--muted); font-size:14.5px}
-  .browsers ul{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:8px}
+  .browsers ul{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:8px}
   .browsers li{
-    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    display:flex; align-items:center; justify-content:space-between; gap:10px; min-width:0;
     padding:9px 12px; border:1px solid var(--line); border-radius:10px; background:rgba(255,255,255,.025);
+    transition:border-color .2s, background .2s;
   }
-  .browsers li span{font-size:13.5px}
+  .browsers li:hover{border-color:var(--line-2); background:rgba(255,255,255,.05)}
+  .browsers li span{font-size:13.5px; flex:none}
   .browsers code{
     font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:12.5px; color:var(--muted);
+    min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
   }
   .browsers p:last-child{margin:14px 0 0; font-size:13.5px; color:var(--muted-2)}
 
@@ -278,8 +317,8 @@
   .k-row{overflow:hidden; white-space:nowrap}
   .k-row + .k-row{margin-top:4px}
   .k-track{display:inline-flex; align-items:center; will-change:transform}
-  .k-a .k-track{animation:drift-a 30s linear infinite alternate}
-  .k-b .k-track{animation:drift-b 36s linear infinite alternate}
+  .k-a .k-track{animation:drift-a 44s linear infinite}
+  .k-b .k-track{animation:drift-b 56s linear infinite}
   .k-word{
     font-size:clamp(24px,3.2vw,42px); font-weight:800; letter-spacing:-.03em;
     text-transform:uppercase; padding:0 .3em; color:var(--text);
@@ -287,8 +326,8 @@
   .k-a .k-word{background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
   .k-b .k-word{color:transparent; -webkit-text-stroke:1px var(--line-2)}
   .k-star{font-size:clamp(13px,1.5vw,19px); color:#ff9d2e; padding:0 .1em}
-  @keyframes drift-a{from{transform:translate3d(0,0,0)}to{transform:translate3d(-22%,0,0)}}
-  @keyframes drift-b{from{transform:translate3d(-18%,0,0)}to{transform:translate3d(2%,0,0)}}
+  @keyframes drift-a{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+  @keyframes drift-b{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}
 
   /* scroll reveals (only when JS is present) */
   .js [data-reveal]{
@@ -320,14 +359,7 @@
   }
   .btn-primary:hover::after{transform:translateX(120%)}
 
-  /* card cursor glow */
-  .card{position:relative; overflow:hidden}
-  .card::after{
-    content:""; position:absolute; inset:-1px; border-radius:inherit; pointer-events:none; opacity:0;
-    background:radial-gradient(340px 180px at var(--mx,50%) var(--my,0%), rgba(255,138,43,.15), transparent 70%);
-    transition:opacity .25s;
-  }
-  .card:hover::after{opacity:1}
+  /* card cursor glow removed: every card carries the same brand sheen */
 
   @media (prefers-reduced-motion: reduce){
     .k-a .k-track, .k-b .k-track{animation:none}
@@ -358,7 +390,7 @@
 
 <div class="intro" id="intro">
   <div class="intro-in">
-    <div class="logo3d" aria-label="UNI"><span class="l3d-face">UNI</span></div>
+    <div class="logo3d" aria-label="UNI"><span class="l3d-back" aria-hidden="true">UNI</span><span class="l3d-face">UNI</span></div>
     <p class="intro-sub"><span data-ru="Roblox, но лучше" data-en="Roblox, but better">Roblox, но лучше</span> · v2.7.3.5-plus</p>
     <button class="intro-enter" id="enter" type="button" data-ru="Войти" data-en="Enter">Войти</button>
     <button class="intro-skip" id="skip" type="button" data-ru="Пропустить" data-en="Skip">Пропустить</button>
@@ -367,7 +399,7 @@
 
 <header class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="#top"><span class="logo3d brand-logo"><span class="l3d-face">UNI</span></span></a>
+    <a class="brand" href="#top"><span class="logo3d brand-logo"><span class="l3d-back" aria-hidden="true">UNI</span><span class="l3d-face">UNI</span></span></a>
     <nav class="nav-links">
       <a href="#features" data-ru="Возможности" data-en="Features">Возможности</a>
       <a href="#screens" data-ru="Скриншоты" data-en="Screenshots">Скриншоты</a>
@@ -388,7 +420,7 @@
     <section class="hero">
       <div class="badge"><span class="dot"></span><span data-ru="Навсегда бесплатно · открытый код" data-en="Forever free · open source">Навсегда бесплатно · открытый код</span></div>
       <h1>
-        <span class="logo3d hero-logo"><span class="l3d-face">UNI</span></span>
+        <span class="logo3d hero-logo"><span class="l3d-back" aria-hidden="true">UNI</span><span class="l3d-face">UNI</span></span>
         <span class="thin" data-ru="Roblox, но лучше" data-en="Roblox, but better">Roblox, но лучше</span>
       </h1>
       <p class="lead" data-ru="Расширение, которое бесплатно даёт то, за что другие расширения для Roblox берут деньги: выбор региона, список серверов, стоимость трейдов, рамки профиля и ещё десятки мелочей." data-en="The extension that gives you for free what other Roblox extensions charge for: region picker, server list, trade values, profile frames and dozens of quality-of-life fixes.">Расширение, которое бесплатно даёт то, за что другие расширения для Roblox берут деньги: выбор региона, список серверов, стоимость трейдов, рамки профиля и ещё десятки мелочей.</p>
@@ -581,7 +613,7 @@
 <footer>
   <div class="wrap">
     <div class="foot-top">
-      <a class="brand" href="#top"><span class="logo3d foot-logo"><span class="l3d-face">UNI</span></span></a>
+      <a class="brand" href="#top"><span class="logo3d foot-logo"><span class="l3d-back" aria-hidden="true">UNI</span><span class="l3d-face">UNI</span></span></a>
       <nav class="foot-links">
         <a href="https://t.me/UNI_EXT" target="_blank" rel="noopener">Telegram</a>
         <a href="downloads/UNI-2.7.3.5-plus.zip" download data-ru="Скачать" data-en="Download">Скачать</a>
@@ -724,37 +756,7 @@
     for(var r3=0;r3<revealTargets.length;r3++) io.observe(revealTargets[r3]);
   }
 
-  /* ---------- cursor glow on cards ---------- */
-  var cards=document.querySelectorAll(".grid .card");
-  for(var c=0;c<cards.length;c++){
-    cards[c].addEventListener("pointermove",function(ev){
-      var rect=this.getBoundingClientRect();
-      this.style.setProperty("--mx",(ev.clientX-rect.left)+"px");
-      this.style.setProperty("--my",(ev.clientY-rect.top)+"px");
-    });
-  }
-
-  /* ---------- 3d logo layers ---------- */
-  (function buildLogos(){
-    var logos=document.querySelectorAll(".logo3d");
-    for(var i=0;i<logos.length;i++){
-      var el=logos[i];
-      var face=el.querySelector(".l3d-face");
-      if(!face || el.querySelector(".l3d")) continue;
-      var frag=document.createDocumentFragment();
-      for(var d=8;d>=1;d--){
-        var layer=document.createElement("span");
-        layer.className="l3d";
-        layer.setAttribute("aria-hidden","true");
-        layer.textContent=face.textContent;
-        layer.style.transform="translate("+(d*0.008).toFixed(4)+"em,"+(d*0.008).toFixed(4)+"em)";
-        var mix=(8-d)/7;
-        layer.style.color="rgb("+Math.round(26+(62-26)*mix)+","+Math.round(13+(38-13)*mix)+","+Math.round(74+(150-74)*mix)+")";
-        frag.appendChild(layer);
-      }
-      el.insertBefore(frag, face);
-    }
-  })();
+  /* ---------- 3d logo: extrusion lives in CSS text-shadow ---------- */
 
   /* ---------- intro gate ---------- */
   var intro=document.getElementById("intro");
