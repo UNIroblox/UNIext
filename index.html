@@ -10,7 +10,7 @@
 <meta property="og:url" content="https://uniroblox.github.io/UNIext/">
 <meta property="og:title" content="UNI — Roblox, но лучше">
 <meta property="og:description" content="Сборка plus: бесплатно, без подписок и пейволлов. Скачивание архивом, обновления в Telegram.">
-<meta property="og:image" content="https://uniroblox.github.io/UNIext/assets/region.png?v=6">
+<meta property="og:image" content="https://uniroblox.github.io/UNIext/assets/logo.png?v=13">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.png?v=12" type="image/png" sizes="any">
 <link rel="apple-touch-icon" href="assets/favicon.png?v=12">
@@ -189,20 +189,6 @@
   .card h3{font-size:16.5px; margin:0 0 8px; letter-spacing:-.01em}
   .card p{margin:0; color:var(--muted); font-size:14.5px; line-height:1.55}
 
-  /* ---------- screenshots ---------- */
-  .shots{display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:start}
-  .shot{
-    margin:0; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;
-    background:var(--panel-2); display:flex; flex-direction:column;
-    transition:transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s, border-color .3s;
-  }
-  .shot:hover{transform:translateY(-4px); border-color:var(--line-2); box-shadow:0 30px 60px -34px rgba(207,19,149,.55)}
-  .shot img{width:100%; height:auto; display:block}
-  .shot.wide{grid-column:1 / -1}
-  .shot figcaption{
-    padding:12px 16px; font-size:13px; color:var(--muted);
-    border-top:1px solid var(--line); background:rgba(255,255,255,.02);
-  }
 
   /* ---------- install ---------- */
   #install{position:relative}
@@ -281,9 +267,6 @@
 
   .progress{position:fixed; left:0; top:0; height:2px; width:0; z-index:60; background:var(--grad); pointer-events:none}
 
-  .first-run{margin:18px 0 0; display:flex; flex-direction:column; gap:10px; max-width:640px}
-  .first-run img{width:100%; height:auto; border:1px solid var(--line); border-radius:var(--radius); display:block}
-  .first-run figcaption{font-size:13px; color:var(--muted)}
 
   /* kinetic type band */
   .kinetic{
@@ -308,8 +291,8 @@
     transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1), filter .7s ease;
   }
   .js [data-reveal].in{opacity:1; transform:none; filter:none}
-  .grid [data-reveal]:nth-child(2), .shots [data-reveal]:nth-child(2), .steps [data-reveal]:nth-child(2){transition-delay:.07s}
-  .grid [data-reveal]:nth-child(3), .shots [data-reveal]:nth-child(3), .steps [data-reveal]:nth-child(3){transition-delay:.14s}
+  .grid [data-reveal]:nth-child(2), .steps [data-reveal]:nth-child(2){transition-delay:.07s}
+  .grid [data-reveal]:nth-child(3), .steps [data-reveal]:nth-child(3){transition-delay:.14s}
   .grid [data-reveal]:nth-child(5), .grid [data-reveal]:nth-child(8){transition-delay:.07s}
   .grid [data-reveal]:nth-child(6), .grid [data-reveal]:nth-child(9){transition-delay:.14s}
 
@@ -347,8 +330,7 @@
   }
   @media (max-width:640px){
     .grid{grid-template-columns:1fr}
-    .shots{grid-template-columns:1fr}
-    .btn{white-space:normal; text-align:center}
+      .btn{white-space:normal; text-align:center}
     .trust{gap:8px 16px}
     .trust i{display:none}
     .hero{padding:56px 0 44px}
@@ -374,7 +356,6 @@
     <a class="brand" href="#top"><img class="logo3d brand-logo" src="assets/logo.png?v=13" alt="UNI" width="1098" height="432"></a>
     <nav class="nav-links">
       <a href="#features" data-ru="Возможности" data-en="Features">Возможности</a>
-      <a href="#screens" data-ru="Скриншоты" data-en="Screenshots">Скриншоты</a>
       <a href="#install" data-ru="Установка" data-en="Install">Установка</a>
       <a href="#faq" data-ru="Вопросы" data-en="FAQ">Вопросы</a>
       <a href="https://t.me/UNI_EXT" target="_blank" rel="noopener">Telegram</a>
@@ -486,23 +467,6 @@
   </div>
 
   <div class="wrap">
-    <section id="screens">
-      <div class="sec-head">
-        <p class="kicker" data-ru="Скриншоты" data-en="Screenshots">Скриншоты</p>
-        <h2 data-ru="Так это выглядит в деле" data-en="How it looks in action">Так это выглядит в деле</h2>
-        <p data-ru="Панель UNI открывается с шапки Roblox и живёт рядом с игрой — отдельного окна не нужно." data-en="The UNI panel opens from the Roblox header and lives next to the game — no extra window.">Панель UNI открывается с шапки Roblox и живёт рядом с игрой — отдельного окна не нужно.</p>
-      </div>
-      <div class="shots">
-        <figure class="shot tall"><img src="assets/servers.png?v=6" alt="UNI — панель серверов" loading="lazy" width="360" height="500"><figcaption data-ru="Серверы: регион, онлайн, переход" data-en="Servers: region, online, join">Серверы: регион, онлайн, переход</figcaption></figure>
-        <figure class="shot tall"><img src="assets/stats.png?v=6" alt="UNI — статистика игры" loading="lazy" width="360" height="500"><figcaption data-ru="Статистика игры и сохранённые игры" data-en="Game stats and saved games">Статистика игры и сохранённые игры</figcaption></figure>
-        <figure class="shot tall"><img src="assets/beta.png?v=6" alt="UNI — бета-функции: копирование игры, смена региона, шейдеры" loading="lazy" width="360" height="640"><figcaption data-ru="Бета-функции: копирование игры, смена региона, шейдеры" data-en="Beta features: copy game, change region, shaders">Бета-функции: копирование игры, смена региона, шейдеры</figcaption></figure>
-        <figure class="shot tall"><img src="assets/ugc.png?v=6" alt="UNI — UGC-предмет: цены и копирование Asset ID" loading="lazy" width="360" height="630"><figcaption data-ru="UGC-предмет: цены, RAP и копирование Asset ID" data-en="UGC item: prices, RAP and Asset ID copy">UGC-предмет: цены, RAP и копирование Asset ID</figcaption></figure>
-        <figure class="shot wide"><img src="assets/region.png?v=6" alt="UNI — выбор региона" loading="lazy" width="900" height="620"><figcaption data-ru="Выбор региона: карта дата-центров" data-en="Region picker: datacenter map">Выбор региона: карта дата-центров</figcaption></figure>
-      </div>
-    </section>
-  </div>
-
-  <div class="wrap">
     <section id="install">
       <div class="sec-head">
         <p class="kicker" data-ru="Установка" data-en="Install">Установка</p>
@@ -546,10 +510,6 @@
         <p data-ru="Firefox и Safari расширения Chrome не запускают — там сборка не заработает." data-en="Firefox and Safari don't run Chrome extensions — the build won't work there.">Firefox и Safari расширения Chrome не запускают — там сборка не заработает.</p>
       </div>
 
-      <figure class="first-run">
-        <img src="assets/onboarding.png?v=6" alt="UNI — first run" width="660" height="440" loading="lazy">
-        <figcaption data-ru="Первый запуск: приветствие UNI и подсказка, где живут настройки." data-en="First run: the UNI welcome and a hint where the settings live.">First run: the UNI welcome and a hint where the settings live.</figcaption>
-      </figure>
     </section>
   </div>
 
@@ -742,7 +702,7 @@
 
   /* ---------- scroll reveals ---------- */
   var revealTargets=document.querySelectorAll(
-    ".sec-head, .grid .card, .shots .shot, .steps .step, .browsers, .faq details, .foot-top"
+    ".sec-head, .grid .card, .steps .step, .browsers, .faq details, .foot-top"
   );
   var reduce=window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if(reduce || !("IntersectionObserver" in window)){
