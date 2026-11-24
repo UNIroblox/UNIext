@@ -10,10 +10,10 @@
 <meta property="og:url" content="https://uniroblox.github.io/UNIext/">
 <meta property="og:title" content="UNI — Roblox, но лучше">
 <meta property="og:description" content="Сборка plus: бесплатно, без подписок и пейволлов. Скачивание архивом, обновления в Telegram.">
-<meta property="og:image" content="https://uniroblox.github.io/UNIext/assets/region.png?v=3">
+<meta property="og:image" content="https://uniroblox.github.io/UNIext/assets/region.png?v=5">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="assets/icon.png?v=3" type="image/png">
-<link rel="apple-touch-icon" href="assets/icon.png?v=3">
+<link rel="icon" href="assets/icon.png?v=5" type="image/png">
+<link rel="apple-touch-icon" href="assets/icon.png?v=5">
 <style>
   :root{
     --bg:#0b0716; --panel:#161029; --panel-2:#100b1e; --line:#2a1f4a; --line-2:#3d2e6b;
@@ -143,7 +143,9 @@
   .shot{
     margin:0; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;
     background:var(--panel-2); display:flex; flex-direction:column;
+    transition:transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s, border-color .3s;
   }
+  .shot:hover{transform:translateY(-4px); border-color:var(--line-2); box-shadow:0 30px 60px -34px rgba(139,92,246,.6)}
   .shot img{width:100%; height:auto; display:block}
   .shot.wide{grid-column:1 / -1}
   .shot figcaption{
@@ -228,6 +230,12 @@
 
   .nav, main, footer{position:relative; z-index:1}
 
+  .progress{position:fixed; left:0; top:0; height:2px; width:0; z-index:60; background:var(--grad); pointer-events:none}
+
+  .first-run{margin:18px 0 0; display:flex; flex-direction:column; gap:10px; max-width:640px}
+  .first-run img{width:100%; height:auto; border:1px solid var(--line); border-radius:var(--radius); display:block}
+  .first-run figcaption{font-size:13px; color:var(--muted)}
+
   /* kinetic type band */
   .kinetic{
     position:relative; z-index:1; margin:0; padding:15px 0 17px;
@@ -243,6 +251,7 @@
     font-size:clamp(24px,3.2vw,42px); font-weight:800; letter-spacing:-.03em;
     text-transform:uppercase; padding:0 .3em; color:var(--text);
   }
+  .k-a .k-word{background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
   .k-b .k-word{color:transparent; -webkit-text-stroke:1px var(--line-2)}
   .k-star{font-size:clamp(13px,1.5vw,19px); color:#b17cff; padding:0 .1em}
   @keyframes drift-a{from{transform:translate3d(0,0,0)}to{transform:translate3d(-22%,0,0)}}
@@ -313,10 +322,11 @@
 <body>
 
 <div class="bg" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
 
 <header class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="#top"><img src="assets/icon.png?v=3" alt="UNI"><span><b>UNI</b></span></a>
+    <a class="brand" href="#top"><img src="assets/icon.png?v=5" alt="UNI"><span><b>UNI</b></span></a>
     <nav class="nav-links">
       <a href="#features" data-ru="Возможности" data-en="Features">Возможности</a>
       <a href="#screens" data-ru="Скриншоты" data-en="Screenshots">Скриншоты</a>
@@ -326,7 +336,7 @@
     </nav>
     <div class="nav-right">
       <button class="lang" id="lang" type="button" aria-label="Switch language">EN</button>
-      <a class="btn btn-primary btn-sm" href="downloads/UNI-2.7.3-plus.zip" download data-ru="Скачать" data-en="Download">Скачать</a>
+      <a class="btn btn-primary btn-sm" href="downloads/UNI-2.7.3.5-plus.zip" download data-ru="Скачать" data-en="Download">Скачать</a>
     </div>
   </div>
 </header>
@@ -344,11 +354,11 @@
 
       <div class="hero-cta">
         <div class="cta-main">
-          <a class="btn btn-primary" href="downloads/UNI-2.7.3-plus.zip" download>
+          <a class="btn btn-primary" href="downloads/UNI-2.7.3.5-plus.zip" download>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
             <span data-ru="Скачать сборку plus" data-en="Download the plus build">Скачать сборку plus</span>
           </a>
-          <span class="btn-note" data-ru="v2.7.3-plus · 4.0 MB · бесплатно" data-en="v2.7.3-plus · 4.0 MB · free">v2.7.3-plus · 4.0 MB · бесплатно</span>
+          <span class="btn-note" data-ru="v2.7.3.5-plus · 4.0 MB · бесплатно" data-en="v2.7.3.5-plus · 4.0 MB · free">v2.7.3.5-plus · 4.0 MB · бесплатно</span>
         </div>
         <div class="cta-main">
           <a class="btn btn-ghost" href="https://t.me/UNI_EXT" target="_blank" rel="noopener">
@@ -360,7 +370,7 @@
       </div>
 
       <div class="trust">
-        <span>v2.7.3-plus</span><span><i></i><span data-ru="50+ функций" data-en="50+ features">50+ функций</span></span>
+        <span>v2.7.3.5-plus</span><span><i></i><span data-ru="50+ функций" data-en="50+ features">50+ функций</span></span>
         <span><i></i>GPL-3.0</span>
         <span><i></i><span data-ru="Без подписок" data-en="No subscriptions">Без подписок</span></span>
       </div>
@@ -438,11 +448,11 @@
         <p data-ru="Панель UNI открывается с шапки Roblox и живёт рядом с игрой — отдельного окна не нужно." data-en="The UNI panel opens from the Roblox header and lives next to the game — no extra window.">Панель UNI открывается с шапки Roblox и живёт рядом с игрой — отдельного окна не нужно.</p>
       </div>
       <div class="shots">
-        <figure class="shot tall"><img src="assets/servers.png?v=3" alt="UNI — панель серверов" loading="lazy" width="360" height="500"><figcaption data-ru="Серверы: регион, онлайн, переход" data-en="Servers: region, online, join">Серверы: регион, онлайн, переход</figcaption></figure>
-        <figure class="shot tall"><img src="assets/stats.png?v=3" alt="UNI — статистика игры" loading="lazy" width="360" height="500"><figcaption data-ru="Статистика игры и сохранённые игры" data-en="Game stats and saved games">Статистика игры и сохранённые игры</figcaption></figure>
-        <figure class="shot tall"><img src="assets/beta.png?v=3" alt="UNI — бета-функции: копирование игры, смена региона, шейдеры" loading="lazy" width="360" height="640"><figcaption data-ru="Бета-функции: копирование игры, смена региона, шейдеры" data-en="Beta features: copy game, change region, shaders">Бета-функции: копирование игры, смена региона, шейдеры</figcaption></figure>
-        <figure class="shot tall"><img src="assets/ugc.png?v=3" alt="UNI — UGC-предмет: цены и копирование Asset ID" loading="lazy" width="360" height="630"><figcaption data-ru="UGC-предмет: цены, RAP и копирование Asset ID" data-en="UGC item: prices, RAP and Asset ID copy">UGC-предмет: цены, RAP и копирование Asset ID</figcaption></figure>
-        <figure class="shot wide"><img src="assets/region.png?v=3" alt="UNI — выбор региона" loading="lazy" width="900" height="620"><figcaption data-ru="Выбор региона: карта дата-центров" data-en="Region picker: datacenter map">Выбор региона: карта дата-центров</figcaption></figure>
+        <figure class="shot tall"><img src="assets/servers.png?v=5" alt="UNI — панель серверов" loading="lazy" width="360" height="500"><figcaption data-ru="Серверы: регион, онлайн, переход" data-en="Servers: region, online, join">Серверы: регион, онлайн, переход</figcaption></figure>
+        <figure class="shot tall"><img src="assets/stats.png?v=5" alt="UNI — статистика игры" loading="lazy" width="360" height="500"><figcaption data-ru="Статистика игры и сохранённые игры" data-en="Game stats and saved games">Статистика игры и сохранённые игры</figcaption></figure>
+        <figure class="shot tall"><img src="assets/beta.png?v=5" alt="UNI — бета-функции: копирование игры, смена региона, шейдеры" loading="lazy" width="360" height="640"><figcaption data-ru="Бета-функции: копирование игры, смена региона, шейдеры" data-en="Beta features: copy game, change region, shaders">Бета-функции: копирование игры, смена региона, шейдеры</figcaption></figure>
+        <figure class="shot tall"><img src="assets/ugc.png?v=5" alt="UNI — UGC-предмет: цены и копирование Asset ID" loading="lazy" width="360" height="630"><figcaption data-ru="UGC-предмет: цены, RAP и копирование Asset ID" data-en="UGC item: prices, RAP and Asset ID copy">UGC-предмет: цены, RAP и копирование Asset ID</figcaption></figure>
+        <figure class="shot wide"><img src="assets/region.png?v=5" alt="UNI — выбор региона" loading="lazy" width="900" height="620"><figcaption data-ru="Выбор региона: карта дата-центров" data-en="Region picker: datacenter map">Выбор региона: карта дата-центров</figcaption></figure>
       </div>
     </section>
   </div>
@@ -457,7 +467,7 @@
       <div class="steps">
         <div class="step">
           <h3 data-ru="Скачать архив" data-en="Download the archive">Скачать архив</h3>
-          <p data-ru="Кнопка «Скачать сборку plus» отдаёт UNI-2.7.3-plus.zip." data-en="The “Download the plus build” button gives you UNI-2.7.3-plus.zip.">Кнопка «Скачать сборку plus» отдаёт UNI-2.7.3-plus.zip.</p>
+          <p data-ru="Кнопка «Скачать сборку plus» отдаёт UNI-2.7.3.5-plus.zip." data-en="The “Download the plus build” button gives you UNI-2.7.3.5-plus.zip.">Кнопка «Скачать сборку plus» отдаёт UNI-2.7.3.5-plus.zip.</p>
         </div>
         <div class="step">
           <h3 data-ru="Распаковать" data-en="Unpack it">Распаковать</h3>
@@ -490,6 +500,11 @@
         </ul>
         <p data-ru="Firefox и Safari расширения Chrome не запускают — там сборка не заработает." data-en="Firefox and Safari don't run Chrome extensions — the build won't work there.">Firefox и Safari расширения Chrome не запускают — там сборка не заработает.</p>
       </div>
+
+      <figure class="first-run">
+        <img src="assets/onboarding.png?v=5" alt="UNI — first run" width="660" height="440" loading="lazy">
+        <figcaption data-ru="Первый запуск: приветствие UNI и подсказка, где живут настройки." data-en="First run: the UNI welcome and a hint where the settings live.">First run: the UNI welcome and a hint where the settings live.</figcaption>
+      </figure>
     </section>
   </div>
 
@@ -525,15 +540,15 @@
 <footer>
   <div class="wrap">
     <div class="foot-top">
-      <a class="brand" href="#top"><img src="assets/icon.png?v=3" alt="UNI"><span><b>UNI</b></span></a>
+      <a class="brand" href="#top"><img src="assets/icon.png?v=5" alt="UNI"><span><b>UNI</b></span></a>
       <nav class="foot-links">
         <a href="https://t.me/UNI_EXT" target="_blank" rel="noopener">Telegram</a>
-        <a href="downloads/UNI-2.7.3-plus.zip" download data-ru="Скачать" data-en="Download">Скачать</a>
+        <a href="downloads/UNI-2.7.3.5-plus.zip" download data-ru="Скачать" data-en="Download">Скачать</a>
       </nav>
     </div>
     <div class="foot-bottom">
       <span data-ru="© 2026 UNI. Расширение не связано с Roblox Corporation." data-en="© 2026 UNI. Not affiliated with Roblox Corporation.">© 2026 UNI. Расширение не связано с Roblox Corporation.</span>
-      <span>GPL-3.0 · v2.7.3-plus</span>
+      <span>GPL-3.0 · v2.7.3.5-plus</span>
     </div>
   </div>
 </footer>
@@ -677,6 +692,18 @@
       this.style.setProperty("--my",(ev.clientY-rect.top)+"px");
     });
   }
+
+  /* ---------- scroll progress ---------- */
+  var pbar=document.getElementById("progress");
+  function onScroll(){
+    if(!pbar) return;
+    var max=document.documentElement.scrollHeight-window.innerHeight;
+    var p=max>0?(window.scrollY/max)*100:0;
+    pbar.style.width=(p<0?0:p>100?100:p).toFixed(2)+"%";
+  }
+  window.addEventListener("scroll",onScroll,{passive:true});
+  window.addEventListener("resize",onScroll);
+  onScroll();
 })();
 </script>
 </body>
