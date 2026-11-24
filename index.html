@@ -20,6 +20,12 @@
     --text:#f1edf4; --muted:#a49aa6; --muted-2:#756b76;
     --grad:linear-gradient(118deg,#4a35ff 0%,#8a1ce0 26%,#cf1395 48%,#f52c3f 70%,#ff8a2b 88%,#ffd45a 100%);
     --btn-grad:linear-gradient(100deg,#3b2bd6 0%,#5320e2 16%,#7818d4 32%,#9c14b4 48%,#bd1389 64%,#d8185f 80%,#ea2a44 93%,#f2402c 100%);
+    --surface:
+      radial-gradient(130% 90% at 50% -35%, rgba(122,23,216,.22), transparent 62%),
+      linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.012));
+    --surface-hover:
+      radial-gradient(130% 90% at 50% -35%, rgba(245,44,63,.26), transparent 62%),
+      linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.02));
     --radius:18px;
   }
   *{box-sizing:border-box}
@@ -162,17 +168,13 @@
   /* ---------- features ---------- */
   .grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
   .card{
-    background:
-      radial-gradient(130% 90% at 50% -35%, rgba(122,23,216,.20), transparent 62%),
-      linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.012));
+    background:var(--surface);
     border:1px solid var(--line); border-radius:var(--radius); padding:24px 22px;
     transition:border-color .22s, transform .22s, background .22s;
   }
   .card:hover{
     border-color:var(--line-2); transform:translateY(-3px);
-    background:
-      radial-gradient(130% 90% at 50% -35%, rgba(245,44,63,.24), transparent 62%),
-      linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+    background:var(--surface-hover);
   }
   .card .ico{
     width:40px; height:40px; border-radius:12px; display:grid; place-items:center;
@@ -199,28 +201,16 @@
 
   /* ---------- install ---------- */
   #install{position:relative}
-  #install::before{
-    content:""; position:absolute; left:0; right:0; top:0; bottom:0; z-index:-1;
-    border-radius:26px; pointer-events:none;
-    background:
-      radial-gradient(90% 120% at 8% -10%, rgba(74,53,255,.10), transparent 60%),
-      radial-gradient(80% 120% at 95% 0%, rgba(207,19,149,.08), transparent 62%),
-      linear-gradient(180deg,rgba(255,255,255,.018),rgba(255,255,255,0));
-  }
   .steps{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; counter-reset:s}
   .step{
     counter-increment:s; position:relative; padding:26px 22px 22px;
-    background:
-      radial-gradient(120% 90% at 50% -40%, rgba(122,23,216,.18), transparent 60%),
-      linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.012));
+    background:var(--surface);
     border:1px solid var(--line); border-radius:var(--radius);
     transition:border-color .22s, transform .22s, background .22s;
   }
   .step:hover{
     border-color:var(--line-2); transform:translateY(-3px);
-    background:
-      radial-gradient(120% 90% at 50% -40%, rgba(245,44,63,.20), transparent 60%),
-      linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+    background:var(--surface-hover);
   }
   .step::before{
     content:counter(s); display:grid; place-items:center; width:30px; height:30px; border-radius:9px;
@@ -241,10 +231,10 @@
 
   .browsers{
     margin-top:14px; padding:22px 24px; border:1px solid var(--line); border-radius:var(--radius);
-    background:
-      radial-gradient(120% 110% at 82% -20%, rgba(122,23,216,.16), transparent 60%),
-      linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));
+    background:var(--surface);
+    transition:border-color .22s, background .22s;
   }
+  .browsers:hover{border-color:var(--line-2); background:var(--surface-hover)}
   .browsers h3{font-size:16px; margin:0 0 6px}
   .browsers > p{margin:0 0 16px; color:var(--muted); font-size:14.5px}
   .browsers ul{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:8px}
