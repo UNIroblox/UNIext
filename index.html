@@ -299,8 +299,6 @@
   .k-row{overflow:hidden; white-space:nowrap}
   .k-row + .k-row{margin-top:4px}
   .k-track{display:inline-flex; align-items:center; will-change:transform}
-  .k-a .k-track{animation:drift-a 44s linear infinite}
-  .k-b .k-track{animation:drift-b 56s linear infinite}
   .k-word{
     font-size:clamp(24px,3.2vw,42px); font-weight:800; letter-spacing:-.03em;
     text-transform:uppercase; padding:0 .3em; color:var(--text);
@@ -308,8 +306,6 @@
   .k-a .k-word{background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
   .k-b .k-word{color:transparent; -webkit-text-stroke:1px var(--line-2)}
   .k-star{font-size:clamp(13px,1.5vw,19px); color:#ff9d2e; padding:0 .1em}
-  @keyframes drift-a{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
-  @keyframes drift-b{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}
 
   /* scroll reveals (only when JS is present) */
   .js [data-reveal]{
@@ -344,7 +340,6 @@
   /* card cursor glow removed: every card carries the same brand sheen */
 
   @media (prefers-reduced-motion: reduce){
-    .k-a .k-track, .k-b .k-track{animation:none}
     .hero h1 > span, .hero .lead, .hero-cta, .trust{animation:none}
     .js [data-reveal]{opacity:1; transform:none; filter:none; transition:none}
     .btn-primary::after{display:none}
@@ -636,6 +631,35 @@
       var ws=tracks[t].querySelectorAll(".k-word");
       for(var w=0;w<ws.length;w++) ws[w].textContent=words[w%words.length];
     }
+    measureMarquee();
+  }
+
+  /* ---------- marquee engine (JS-driven so it always runs, at any motion setting) ---------- */
+  var MARQ={half:0,pos:0,last:0,running:false};
+  function measureMarquee(){
+    var tr=document.querySelector(".k-track");
+    MARQ.half = tr ? tr.scrollWidth/2 : 0;
+  }
+  function stepMarquee(ts){
+    if(!MARQ.last) MARQ.last=ts;
+    var dt=(ts-MARQ.last)/1000; MARQ.last=ts;
+    if(dt>0.25) dt=0.25;
+    MARQ.pos += 30*dt;
+    var tracks=document.querySelectorAll(".k-track");
+    var half=MARQ.half||1;
+    for(var i=0;i<tracks.length;i++){
+      var x=(MARQ.pos*(i===0?-1:1))%half;
+      if(x>0) x-=half;
+      tracks[i].style.transform="translate3d("+x.toFixed(2)+"px,0,0)";
+    }
+    requestAnimationFrame(stepMarquee);
+  }
+  function startMarquee(){
+    measureMarquee();
+    if(MARQ.running) return;
+    MARQ.running=true;
+    MARQ.last=0;
+    requestAnimationFrame(stepMarquee);
   }
 
   function apply(lang){
@@ -711,6 +735,9 @@
       });
     }
   }
+
+  startMarquee();
+  window.addEventListener("resize",measureMarquee);
 
   btn.addEventListener("click",function(){
     var next=current==="ru"?"en":"ru";
