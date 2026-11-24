@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UNI — Roblox, но лучше</title>
-<meta name="description" content="UNI — навсегда бесплатное расширение для Roblox: выбор региона, серверы, трейды, профиль, темы и десятки мелочей, за которые другие берут деньги.">
+<meta name="description" content="UNI — бесплатное расширение для Roblox. Сборка plus: выбор региона, серверы, трейды, профиль, темы и десятки мелочей. Скачать архивом, обновления в Telegram.">
 <meta name="theme-color" content="#0a0b0f">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://uniroblox.github.io/UNIext/">
 <meta property="og:title" content="UNI — Roblox, но лучше">
-<meta property="og:description" content="Навсегда бесплатное расширение для Roblox. Открытый код, без подписок и пейволлов.">
+<meta property="og:description" content="Сборка plus: бесплатно, без подписок и пейволлов. Скачивание архивом, обновления в Telegram.">
 <meta property="og:image" content="https://uniroblox.github.io/UNIext/assets/region.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/icon.png" type="image/png">
@@ -155,7 +155,7 @@
   }
 
   /* ---------- install ---------- */
-  .steps{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; counter-reset:s}
+  .steps{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; counter-reset:s}
   .step{
     counter-increment:s; position:relative; padding:26px 22px 22px;
     background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
@@ -200,7 +200,7 @@
 
   @media (max-width:900px){
     .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .steps{grid-template-columns:1fr}
+    .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
     .nav-links{display:none}
   }
   @media (max-width:640px){
@@ -224,10 +224,11 @@
       <a href="#screens" data-ru="Скриншоты" data-en="Screenshots">Скриншоты</a>
       <a href="#install" data-ru="Установка" data-en="Install">Установка</a>
       <a href="#faq" data-ru="Вопросы" data-en="FAQ">Вопросы</a>
+      <a href="https://t.me/UNI_EXT" target="_blank" rel="noopener">Telegram</a>
     </nav>
     <div class="nav-right">
       <button class="lang" id="lang" type="button" aria-label="Switch language">EN</button>
-      <a class="btn btn-primary btn-sm" href="https://chromewebstore.google.com/detail/uni-roblox-improved/njcickgebhnpgmoodjdgohkclfplejli" target="_blank" rel="noopener" data-ru="Установить" data-en="Install">Установить</a>
+      <a class="btn btn-primary btn-sm" href="downloads/UNI-2.7.3-plus.zip" download data-ru="Скачать" data-en="Download">Скачать</a>
     </div>
   </div>
 </header>
@@ -245,23 +246,23 @@
 
       <div class="hero-cta">
         <div class="cta-main">
-          <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/uni-roblox-improved/njcickgebhnpgmoodjdgohkclfplejli" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.4"/><path d="M21 12h-6M4.5 7.5l5.2 3M9.7 19.5l2.6-5.4"/></svg>
-            <span data-ru="Установить из Chrome Web Store" data-en="Install from Chrome Web Store">Установить из Chrome Web Store</span>
+          <a class="btn btn-primary" href="downloads/UNI-2.7.3-plus.zip" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+            <span data-ru="Скачать сборку plus" data-en="Download the plus build">Скачать сборку plus</span>
           </a>
-          <span class="btn-note" data-ru="Бесплатно · Chrome, Edge, Opera, Brave" data-en="Free · Chrome, Edge, Opera, Brave">Бесплатно · Chrome, Edge, Opera, Brave</span>
+          <span class="btn-note" data-ru="v2.7.3-plus · 4.0 MB · бесплатно" data-en="v2.7.3-plus · 4.0 MB · free">v2.7.3-plus · 4.0 MB · бесплатно</span>
         </div>
         <div class="cta-main">
-          <a class="btn btn-ghost" href="downloads/UNI-2.7.3.zip" download>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
-            <span data-ru="Скачать ZIP" data-en="Download ZIP">Скачать ZIP</span>
+          <a class="btn btn-ghost" href="https://t.me/UNI_EXT" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m22 3-9.5 18-2.5-7.5L2 11 22 3Z"/><path d="M22 3 10 13.5"/></svg>
+            <span>Telegram</span>
           </a>
-          <span class="btn-note">v2.7.3 · 4.1 MB</span>
+          <span class="btn-note" data-ru="обновления и новости" data-en="updates and news">обновления и новости</span>
         </div>
       </div>
 
       <div class="trust">
-        <span>v2.7.3</span><span><i></i><span data-ru="50+ функций" data-en="50+ features">50+ функций</span></span>
+        <span>v2.7.3-plus</span><span><i></i><span data-ru="50+ функций" data-en="50+ features">50+ функций</span></span>
         <span><i></i><span data-ru="13 языков" data-en="13 languages">13 языков</span></span>
         <span><i></i>GPL-3.0</span>
         <span><i></i><span data-ru="Без подписок" data-en="No subscriptions">Без подписок</span></span>
@@ -346,26 +347,30 @@
     <section id="install">
       <div class="sec-head">
         <p class="kicker" data-ru="Установка" data-en="Install">Установка</p>
-        <h2 data-ru="Три шага — и готово" data-en="Three steps and you're set">Три шага — и готово</h2>
-        <p data-ru="Работает в любом Chromium-браузере: Chrome, Edge, Opera, Brave, Vivaldi." data-en="Works in any Chromium browser: Chrome, Edge, Opera, Brave, Vivaldi.">Работает в любом Chromium-браузере: Chrome, Edge, Opera, Brave, Vivaldi.</p>
+        <h2 data-ru="Четыре шага — и готово" data-en="Four steps and you're set">Четыре шага — и готово</h2>
+        <p data-ru="Работает в любом Chromium-браузере: Chrome, Edge, Opera, Brave, Vivaldi. Магазин не нужен — ставится распакованным." data-en="Works in any Chromium browser: Chrome, Edge, Opera, Brave, Vivaldi. No store needed — it loads unpacked.">Работает в любом Chromium-браузере: Chrome, Edge, Opera, Brave, Vivaldi. Магазин не нужен — ставится распакованным.</p>
       </div>
       <div class="steps">
         <div class="step">
-          <h3 data-ru="Установить расширение" data-en="Install the extension">Установить расширение</h3>
-          <p data-ru="Открой страницу в Chrome Web Store и нажми «Установить»." data-en="Open the Chrome Web Store page and hit “Add to Chrome”.">Открой страницу в Chrome Web Store и нажми «Установить».</p>
+          <h3 data-ru="Скачать архив" data-en="Download the archive">Скачать архив</h3>
+          <p data-ru="Кнопка «Скачать сборку plus» отдаёт UNI-2.7.3-plus.zip." data-en="The “Download the plus build” button gives you UNI-2.7.3-plus.zip.">Кнопка «Скачать сборку plus» отдаёт UNI-2.7.3-plus.zip.</p>
+        </div>
+        <div class="step">
+          <h3 data-ru="Распаковать" data-en="Unpack it">Распаковать</h3>
+          <p data-ru="Распакуй архив в отдельную папку — из самого архива браузер расширение не подхватит." data-en="Extract it into its own folder — the browser won't load it from inside the zip.">Распакуй архив в отдельную папку — из самого архива браузер расширение не подхватит.</p>
+        </div>
+        <div class="step">
+          <h3 data-ru="Загрузить в браузер" data-en="Load into the browser">Загрузить в браузер</h3>
+          <p data-ru="Открой chrome://extensions, включи «Режим разработчика» и нажми «Загрузить распакованное»." data-en="Open chrome://extensions, turn on “Developer mode” and click “Load unpacked”.">Открой chrome://extensions, включи «Режим разработчика» и нажми «Загрузить распакованное».</p>
         </div>
         <div class="step">
           <h3 data-ru="Открыть Roblox" data-en="Open Roblox">Открыть Roblox</h3>
-          <p data-ru="Зайди на roblox.com и авторизуйся. Панель UNI появится в шапке сайта." data-en="Go to roblox.com and sign in. The UNI panel appears in the site header.">Зайди на roblox.com и авторизуйся. Панель UNI появится в шапке сайта.</p>
-        </div>
-        <div class="step">
-          <h3 data-ru="Включить функции" data-en="Turn features on">Включить функции</h3>
-          <p data-ru="Шестерёнка в шапке → «Настройки UNI». Там поиск по настройкам и все переключатели." data-en="Gear icon in the header → “UNI Settings”. There is a settings search and every toggle.">Шестерёнка в шапке → «Настройки UNI». Там поиск по настройкам и все переключатели.</p>
+          <p data-ru="Зайди на roblox.com: панель UNI в шапке сайта, настройки — под шестерёнкой." data-en="Go to roblox.com: the UNI panel sits in the site header, settings under the gear icon.">Зайди на roblox.com: панель UNI в шапке сайта, настройки — под шестерёнкой.</p>
         </div>
       </div>
       <div class="manual">
-        <b data-ru="Вручную из ZIP:" data-en="Manual ZIP install:">Вручную из ZIP:</b>
-        <span data-ru="распакуй архив, открой " data-en="unpack the archive, open ">распакуй архив, открой </span><code>chrome://extensions</code><span data-ru=", включи «Режим разработчика» и нажми «Загрузить распакованное расширение»." data-en=", enable “Developer mode” and click “Load unpacked”.">, включи «Режим разработчика» и нажми «Загрузить распакованное расширение».</span>
+        <b data-ru="Chrome предупредит" data-en="Chrome will warn">Chrome предупредит</b>
+        <span data-ru=", что расширение не из магазина — для ручной установки это обычное дело, включать можно." data-en=" that the extension isn't from the store — normal for a manual install, you can enable it.">, что расширение не из магазина — для ручной установки это обычное дело, включать можно.</span>
       </div>
     </section>
   </div>
@@ -382,8 +387,12 @@
           <p data-ru="Да. Все функции расширения бесплатны, без подписки и платных уровней. Проект живёт на пожертвования: часть функций вроде выбора региона требует серверов, а они стоят денег." data-en="Yes. Every feature is free, with no subscription and no paid tiers. The project runs on donations: features like the region picker need servers, and servers cost money.">Да. Все функции расширения бесплатны, без подписки и платных уровней. Проект живёт на пожертвования: часть функций вроде выбора региона требует серверов, а они стоят денег.</p>
         </details>
         <details>
+          <summary data-ru="Почему не из Chrome Web Store?" data-en="Why not from the Chrome Web Store?">Почему не из Chrome Web Store?</summary>
+          <p data-ru="Сборка plus выходит архивом, без модерации магазина: обновления появляются сразу, и никто не застревает на старой версии. Ставится вручную — через «Загрузить распакованное»." data-en="The plus build ships as an archive, without store review: updates land immediately and nobody gets stuck on an old version. It installs manually via “Load unpacked”.">Сборка plus выходит архивом, без модерации магазина: обновления появляются сразу, и никто не застревает на старой версии. Ставится вручную — через «Загрузить распакованное».</p>
+        </details>
+        <details>
           <summary data-ru="Это безопасно?" data-en="Is it safe?">Это безопасно?</summary>
-          <p data-ru="Код открыт под лицензией GPL-3.0, расширение распространяется через Chrome Web Store. Разрешения ограничены доменами Roblox — доступ к другим сайтам ему не нужен." data-en="The code is open under GPL-3.0 and the extension ships through the Chrome Web Store. Its permissions are limited to Roblox domains — it never needs access to other sites.">Код открыт под лицензией GPL-3.0, расширение распространяется через Chrome Web Store. Разрешения ограничены доменами Roblox — доступ к другим сайтам ему не нужен.</p>
+          <p data-ru="В манифесте разрешения ограничены доменами Roblox и загрузками файлов — доступа к другим сайтам расширение не просит. Chrome один раз предупредит, что сборка не из магазина: для ручной установки это ожидаемо." data-en="The manifest only asks for Roblox domains and file downloads — no access to other sites. Chrome warns once that the build isn't from the store: expected for a manual install.">В манифесте разрешения ограничены доменами Roblox и загрузками файлов — доступа к другим сайтам расширение не просит. Chrome один раз предупредит, что сборка не из магазина: для ручной установки это ожидаемо.</p>
         </details>
         <details>
           <summary data-ru="Зачем тогда донаты?" data-en="Why donations, then?">Зачем тогда донаты?</summary>
@@ -391,7 +400,7 @@
         </details>
         <details>
           <summary data-ru="Куда писать о баге?" data-en="Where to report a bug?">Куда писать о баге?</summary>
-          <p data-ru="В Discord-сервер проекта или в issues на GitHub — ссылки в подвале." data-en="The project Discord server or GitHub issues — links in the footer.">В Discord-сервер проекта или в issues на GitHub — ссылки в подвале.</p>
+          <p data-ru="В Telegram-канале — ссылка в шапке и подвале сайта. Туда же приходят новости об обновлениях." data-en="The Telegram channel — link in the header and footer. Updates are announced there too.">В Telegram-канале — ссылка в шапке и подвале сайта. Туда же приходят новости об обновлениях.</p>
         </details>
       </div>
     </section>
@@ -404,15 +413,15 @@
     <div class="foot-top">
       <a class="brand" href="#top"><img src="assets/icon.png" alt="UNI"><span><b>UNI</b></span></a>
       <nav class="foot-links">
-        <a href="https://chromewebstore.google.com/detail/uni-roblox-improved/njcickgebhnpgmoodjdgohkclfplejli" target="_blank" rel="noopener">Chrome Web Store</a>
+        <a href="https://t.me/UNI_EXT" target="_blank" rel="noopener">Telegram</a>
         <a href="https://discord.gg/GHd5cSKJRk" target="_blank" rel="noopener">Discord</a>
-        <a href="https://github.com/UNI/UNI" target="_blank" rel="noopener">GitHub</a>
         <a href="https://www.roblox.com/games/store-section/9452973012" target="_blank" rel="noopener" data-ru="Поддержать" data-en="Donate">Поддержать</a>
+        <a href="downloads/UNI-2.7.3-plus.zip" download data-ru="Скачать" data-en="Download">Скачать</a>
       </nav>
     </div>
     <div class="foot-bottom">
       <span data-ru="© 2026 UNI. Расширение не связано с Roblox Corporation." data-en="© 2026 UNI. Not affiliated with Roblox Corporation.">© 2026 UNI. Расширение не связано с Roblox Corporation.</span>
-      <span>GPL-3.0 · v2.7.3</span>
+      <span>GPL-3.0 · v2.7.3-plus</span>
     </div>
   </div>
 </footer>
