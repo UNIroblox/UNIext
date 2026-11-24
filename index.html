@@ -27,17 +27,12 @@
     margin:0; color:var(--text); overflow-x:hidden;
     font:16px/1.6 "Inter","Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
     -webkit-font-smoothing:antialiased;
-    background-color:var(--bg);
+    background:#000;
     background-image:
-      linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
-      linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px),
-      radial-gradient(820px 480px at 10% -10%, rgba(58,43,255,.16), transparent 62%),
-      radial-gradient(720px 500px at 92% -4%, rgba(207,19,149,.18), transparent 60%),
-      radial-gradient(680px 440px at 74% 12%, rgba(245,44,63,.16), transparent 62%),
-      radial-gradient(520px 360px at 96% 26%, rgba(255,138,43,.10), transparent 64%),
-      radial-gradient(900px 700px at 50% 106%, rgba(16,7,46,.55), transparent 62%);
-    background-size:64px 64px, 64px 64px, auto, auto, auto;
-    background-repeat:repeat, repeat, no-repeat, no-repeat, no-repeat;
+      linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
+    background-size:64px 64px, 64px 64px;
+    background-repeat:repeat, repeat;
   }
   a{color:inherit; text-decoration:none}
   img{display:block; max-width:100%}
@@ -48,7 +43,7 @@
   .logo3d{
     position:relative; display:inline-block;
     font-family:"Arial Black","Segoe UI Black",Impact,system-ui,sans-serif;
-    font-weight:900; font-style:italic; letter-spacing:-.04em; line-height:1;
+    font-weight:900; font-style:italic; letter-spacing:-.025em; line-height:1;
     transform:skewX(-6deg); transform-origin:center bottom;
     filter:drop-shadow(.42em .5em .55em rgba(0,0,0,.75));
   }
@@ -57,7 +52,6 @@
     position:relative; display:block;
     background:linear-gradient(118deg,#4a35ff 0%,#8a1ce0 26%,#cf1395 48%,#f52c3f 70%,#ff8a2b 88%,#ffd45a 100%);
     -webkit-background-clip:text; background-clip:text; color:transparent;
-    -webkit-text-stroke:.4px rgba(255,214,140,.22);
   }
   .brand-logo{font-size:24px; margin-left:-2px}
   .hero-logo{font-size:clamp(56px,9.4vw,116px); margin:0 0 .14em -4px}
@@ -266,20 +260,7 @@
   .foot-links a:hover{color:var(--text)}
   .foot-bottom{margin-top:26px; color:var(--muted-2); font-size:13px; display:flex; flex-wrap:wrap; gap:10px 20px; justify-content:space-between}
 
-  /* ---------- motion: aurora bg, kinetic type, reveals ---------- */
-  .bg{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden}
-  .bg i{position:absolute; display:block; border-radius:50%; filter:blur(70px); opacity:.42; will-change:transform}
-  .bg i:nth-child(1){width:52vw; height:52vw; left:-8vw; top:-16vw; background:radial-gradient(circle at 30% 30%, #4a35ff, transparent 66%); animation:blob-a 22s ease-in-out infinite alternate}
-  .bg i:nth-child(2){width:44vw; height:44vw; right:-6vw; top:-6vw; background:radial-gradient(circle at 60% 40%, #cf1395, transparent 64%); animation:blob-b 27s ease-in-out infinite alternate}
-  .bg i:nth-child(3){width:58vw; height:58vw; left:24vw; bottom:-30vw; background:radial-gradient(circle at 50% 50%, #8a1146, transparent 68%); animation:blob-c 31s ease-in-out infinite alternate}
-  .bg::after{
-    content:""; position:absolute; inset:0; opacity:.14; pointer-events:none;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
-  }
-  @keyframes blob-a{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(6vw,8vh,0) scale(1.16)}}
-  @keyframes blob-b{from{transform:translate3d(0,0,0) scale(1.06)}to{transform:translate3d(-7vw,10vh,0) scale(.92)}}
-  @keyframes blob-c{from{transform:translate3d(0,0,0) scale(.95)}to{transform:translate3d(-5vw,-6vh,0) scale(1.14)}}
-
+  /* ---------- motion: kinetic type, reveals ---------- */
   .nav, main, footer{position:relative; z-index:1}
 
   .progress{position:fixed; left:0; top:0; height:2px; width:0; z-index:60; background:var(--grad); pointer-events:none}
@@ -349,7 +330,6 @@
   .card:hover::after{opacity:1}
 
   @media (prefers-reduced-motion: reduce){
-    .bg i{animation:none}
     .k-a .k-track, .k-b .k-track{animation:none}
     .hero h1 > span, .hero .lead, .hero-cta, .trust{animation:none}
     .js [data-reveal]{opacity:1; transform:none; filter:none; transition:none}
@@ -374,7 +354,6 @@
 </head>
 <body>
 
-<div class="bg" aria-hidden="true"><i></i><i></i><i></i></div>
 <div class="progress" id="progress" aria-hidden="true"></div>
 
 <div class="intro" id="intro">
@@ -763,14 +742,14 @@
       var face=el.querySelector(".l3d-face");
       if(!face || el.querySelector(".l3d")) continue;
       var frag=document.createDocumentFragment();
-      for(var d=14;d>=1;d--){
+      for(var d=8;d>=1;d--){
         var layer=document.createElement("span");
         layer.className="l3d";
         layer.setAttribute("aria-hidden","true");
         layer.textContent=face.textContent;
-        layer.style.transform="translate("+(d*0.0115).toFixed(4)+"em,"+(d*0.0115).toFixed(4)+"em)";
-        var mix=(14-d)/13;
-        layer.style.color="rgb("+Math.round(13+(38-13)*mix)+","+Math.round(6+(21-6)*mix)+","+Math.round(46+(90-46)*mix)+")";
+        layer.style.transform="translate("+(d*0.008).toFixed(4)+"em,"+(d*0.008).toFixed(4)+"em)";
+        var mix=(8-d)/7;
+        layer.style.color="rgb("+Math.round(26+(62-26)*mix)+","+Math.round(13+(38-13)*mix)+","+Math.round(74+(150-74)*mix)+")";
         frag.appendChild(layer);
       }
       el.insertBefore(frag, face);
