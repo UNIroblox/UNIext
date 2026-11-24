@@ -16,9 +16,9 @@
 <link rel="apple-touch-icon" href="assets/icon.png?v=5">
 <style>
   :root{
-    --bg:#000000; --panel:#0a0a11; --panel-2:#060609; --line:#1c1c28; --line-2:#30303f;
-    --text:#eeeaf9; --muted:#9a92b8; --muted-2:#6d6489;
-    --grad:linear-gradient(135deg,#f0abfc 0%,#d8b4fe 20%,#b17cff 45%,#8b5cf6 70%,#6d28d9 100%);
+    --bg:#050507; --panel:#0b0b12; --panel-2:#070709; --line:#1d1d29; --line-2:#2f2f40;
+    --text:#f1edf4; --muted:#a49aa6; --muted-2:#756b76;
+    --grad:linear-gradient(118deg,#4a35ff 0%,#8a1ce0 26%,#cf1395 48%,#f52c3f 70%,#ff8a2b 88%,#ffd45a 100%);
     --radius:18px;
   }
   *{box-sizing:border-box}
@@ -31,9 +31,11 @@
     background-image:
       linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
       linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px),
-      radial-gradient(900px 520px at 12% -8%, rgba(124,58,237,.26), transparent 60%),
-      radial-gradient(760px 520px at 88% 0%, rgba(193,26,82,.18), transparent 58%),
-      radial-gradient(900px 700px at 50% 106%, rgba(74,20,160,.24), transparent 62%);
+      radial-gradient(820px 480px at 10% -10%, rgba(58,43,255,.16), transparent 62%),
+      radial-gradient(720px 500px at 92% -4%, rgba(207,19,149,.18), transparent 60%),
+      radial-gradient(680px 440px at 74% 12%, rgba(245,44,63,.16), transparent 62%),
+      radial-gradient(520px 360px at 96% 26%, rgba(255,138,43,.10), transparent 64%),
+      radial-gradient(900px 700px at 50% 106%, rgba(16,7,46,.55), transparent 62%);
     background-size:64px 64px, 64px 64px, auto, auto, auto;
     background-repeat:repeat, repeat, no-repeat, no-repeat, no-repeat;
   }
@@ -53,9 +55,9 @@
   .logo3d .l3d{position:absolute; left:0; top:0; color:#1b0d4a; white-space:nowrap; pointer-events:none}
   .logo3d .l3d-face{
     position:relative; display:block;
-    background:linear-gradient(100deg,#4a35ff 0%,#8a1ce0 26%,#cf1395 50%,#f52c3f 72%,#ff8a2b 88%,#ffd45a 100%);
+    background:linear-gradient(118deg,#4a35ff 0%,#8a1ce0 26%,#cf1395 48%,#f52c3f 70%,#ff8a2b 88%,#ffd45a 100%);
     -webkit-background-clip:text; background-clip:text; color:transparent;
-    -webkit-text-stroke:.6px rgba(255,180,90,.35);
+    -webkit-text-stroke:.4px rgba(255,214,140,.22);
   }
   .brand-logo{font-size:24px; margin-left:-2px}
   .hero-logo{font-size:clamp(56px,9.4vw,116px); margin:0 0 .14em -4px}
@@ -126,11 +128,11 @@
   .btn-primary{
     position:relative; border:1px solid transparent; color:#170c2b;
     background:var(--grad);
-    box-shadow:0 14px 36px -16px rgba(139,92,246,.7), inset 0 1px 0 rgba(255,255,255,.45);
+    box-shadow:0 14px 36px -16px rgba(207,19,149,.65), inset 0 1px 0 rgba(255,255,255,.45);
   }
   .btn-primary:hover{
     color:#120821; border-color:transparent; background:var(--grad); filter:brightness(1.07);
-    box-shadow:0 20px 44px -16px rgba(168,85,247,.85), inset 0 1px 0 rgba(255,255,255,.55);
+    box-shadow:0 20px 44px -16px rgba(245,44,63,.8), inset 0 1px 0 rgba(255,255,255,.55);
   }
   .btn-primary svg{stroke-width:2}
   .btn-ghost{background:transparent}
@@ -144,7 +146,7 @@
     letter-spacing:.04em; color:var(--muted); border:1px solid var(--line);
     border-radius:999px; padding:7px 14px; margin-bottom:26px; background:rgba(255,255,255,.02);
   }
-  .dot{width:6px; height:6px; border-radius:50%; background:#a855f7; box-shadow:0 0 10px #a855f7}
+  .dot{width:6px; height:6px; border-radius:50%; background:#ff7a2b; box-shadow:0 0 10px #ff7a2b}
   .hero h1{
     font-size:clamp(34px,6vw,64px); line-height:1.05; letter-spacing:-.035em;
     margin:0 0 20px; font-weight:800;
@@ -160,7 +162,7 @@
     margin-top:36px; color:var(--muted-2); font-size:13px;
   }
   .trust span{display:inline-flex; align-items:center; gap:7px}
-  .trust i{width:5px; height:5px; border-radius:50%; background:var(--muted-2); display:inline-block}
+  .trust i{width:5px; height:5px; border-radius:50%; background:#ff7a2b; display:inline-block}
 
   /* ---------- sections ---------- */
   section{padding:76px 0}
@@ -184,7 +186,7 @@
     width:40px; height:40px; border-radius:12px; display:grid; place-items:center;
     border:1px solid var(--line-2); background:rgba(255,255,255,.04); margin-bottom:16px;
   }
-  .card .ico svg{width:20px; height:20px; stroke:#d6c8f6; fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round}
+  .card .ico svg{width:20px; height:20px; stroke:#ffcda6; fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round}
   .card h3{font-size:16.5px; margin:0 0 8px; letter-spacing:-.01em}
   .card p{margin:0; color:var(--muted); font-size:14.5px; line-height:1.55}
 
@@ -195,7 +197,7 @@
     background:var(--panel-2); display:flex; flex-direction:column;
     transition:transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s, border-color .3s;
   }
-  .shot:hover{transform:translateY(-4px); border-color:var(--line-2); box-shadow:0 30px 60px -34px rgba(139,92,246,.6)}
+  .shot:hover{transform:translateY(-4px); border-color:var(--line-2); box-shadow:0 30px 60px -34px rgba(207,19,149,.55)}
   .shot img{width:100%; height:auto; display:block}
   .shot.wide{grid-column:1 / -1}
   .shot figcaption{
@@ -266,10 +268,10 @@
 
   /* ---------- motion: aurora bg, kinetic type, reveals ---------- */
   .bg{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden}
-  .bg i{position:absolute; display:block; border-radius:50%; filter:blur(70px); opacity:.5; will-change:transform}
-  .bg i:nth-child(1){width:52vw; height:52vw; left:-8vw; top:-16vw; background:radial-gradient(circle at 30% 30%, #7c3aed, transparent 66%); animation:blob-a 22s ease-in-out infinite alternate}
-  .bg i:nth-child(2){width:44vw; height:44vw; right:-6vw; top:-6vw; background:radial-gradient(circle at 60% 40%, #c026d3, transparent 64%); animation:blob-b 27s ease-in-out infinite alternate}
-  .bg i:nth-child(3){width:58vw; height:58vw; left:24vw; bottom:-30vw; background:radial-gradient(circle at 50% 50%, #4c1d95, transparent 68%); animation:blob-c 31s ease-in-out infinite alternate}
+  .bg i{position:absolute; display:block; border-radius:50%; filter:blur(70px); opacity:.42; will-change:transform}
+  .bg i:nth-child(1){width:52vw; height:52vw; left:-8vw; top:-16vw; background:radial-gradient(circle at 30% 30%, #4a35ff, transparent 66%); animation:blob-a 22s ease-in-out infinite alternate}
+  .bg i:nth-child(2){width:44vw; height:44vw; right:-6vw; top:-6vw; background:radial-gradient(circle at 60% 40%, #cf1395, transparent 64%); animation:blob-b 27s ease-in-out infinite alternate}
+  .bg i:nth-child(3){width:58vw; height:58vw; left:24vw; bottom:-30vw; background:radial-gradient(circle at 50% 50%, #8a1146, transparent 68%); animation:blob-c 31s ease-in-out infinite alternate}
   .bg::after{
     content:""; position:absolute; inset:0; opacity:.14; pointer-events:none;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
@@ -290,7 +292,7 @@
   .kinetic{
     position:relative; z-index:1; margin:0; padding:15px 0 17px;
     border-top:1px solid var(--line); border-bottom:1px solid var(--line); overflow:hidden;
-    background:linear-gradient(180deg,rgba(139,92,246,.07),rgba(139,92,246,0));
+    background:linear-gradient(180deg,rgba(245,44,63,.07),rgba(245,44,63,0));
   }
   .k-row{overflow:hidden; white-space:nowrap}
   .k-row + .k-row{margin-top:4px}
@@ -303,7 +305,7 @@
   }
   .k-a .k-word{background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
   .k-b .k-word{color:transparent; -webkit-text-stroke:1px var(--line-2)}
-  .k-star{font-size:clamp(13px,1.5vw,19px); color:#b17cff; padding:0 .1em}
+  .k-star{font-size:clamp(13px,1.5vw,19px); color:#ff9d2e; padding:0 .1em}
   @keyframes drift-a{from{transform:translate3d(0,0,0)}to{transform:translate3d(-22%,0,0)}}
   @keyframes drift-b{from{transform:translate3d(-18%,0,0)}to{transform:translate3d(2%,0,0)}}
 
@@ -341,7 +343,7 @@
   .card{position:relative; overflow:hidden}
   .card::after{
     content:""; position:absolute; inset:-1px; border-radius:inherit; pointer-events:none; opacity:0;
-    background:radial-gradient(340px 180px at var(--mx,50%) var(--my,0%), rgba(177,124,255,.16), transparent 70%);
+    background:radial-gradient(340px 180px at var(--mx,50%) var(--my,0%), rgba(255,138,43,.15), transparent 70%);
     transition:opacity .25s;
   }
   .card:hover::after{opacity:1}
@@ -761,13 +763,14 @@
       var face=el.querySelector(".l3d-face");
       if(!face || el.querySelector(".l3d")) continue;
       var frag=document.createDocumentFragment();
-      for(var d=8;d>=1;d--){
+      for(var d=14;d>=1;d--){
         var layer=document.createElement("span");
         layer.className="l3d";
         layer.setAttribute("aria-hidden","true");
         layer.textContent=face.textContent;
-        layer.style.transform="translate("+(d*0.02).toFixed(3)+"em,"+(d*0.02).toFixed(3)+"em)";
-        layer.style.color = d>5 ? "#150b3c" : (d>2 ? "#1a0d47" : "#211154");
+        layer.style.transform="translate("+(d*0.0115).toFixed(4)+"em,"+(d*0.0115).toFixed(4)+"em)";
+        var mix=(14-d)/13;
+        layer.style.color="rgb("+Math.round(13+(38-13)*mix)+","+Math.round(6+(21-6)*mix)+","+Math.round(46+(90-46)*mix)+")";
         frag.appendChild(layer);
       }
       el.insertBefore(frag, face);
