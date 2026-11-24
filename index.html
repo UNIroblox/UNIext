@@ -89,7 +89,6 @@
   }
   .nav-in{display:flex; align-items:center; gap:26px; height:64px}
   .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:-.02em; font-size:18px}
-  .brand img{width:26px; height:26px; border-radius:7px}
   .brand b{background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
   .nav-links{display:flex; gap:22px; margin-left:8px}
   .nav-links a{color:var(--muted); font-size:14.5px; transition:color .15s}
@@ -113,12 +112,13 @@
   .btn:hover{transform:translateY(-1px); border-color:var(--line-2); background:rgba(255,255,255,.07)}
   .btn-sm{padding:9px 16px; font-size:14px; border-radius:11px}
   .btn-primary{
-    position:relative; border:1px solid transparent; color:#170c2b;
+    position:relative; border:0; color:#170c2b;
     background-image:url("assets/btn.png?v=1");
     background-size:100% 100%;
     background-repeat:no-repeat;
     background-position:center;
-    box-shadow:0 14px 36px -16px rgba(207,19,149,.65), inset 0 1px 0 rgba(255,255,255,.35);
+    background-clip:border-box;
+    box-shadow:0 14px 36px -16px rgba(207,19,149,.65);
   }
   .btn-primary:hover{
     color:#120821; border-color:transparent; filter:brightness(1.07);
