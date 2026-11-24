@@ -29,41 +29,20 @@
     font:16px/1.6 "Inter","Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
     -webkit-font-smoothing:antialiased;
     background:#000;
-    background-image:
-      linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),
-      linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
-    background-size:64px 64px, 64px 64px;
-    background-repeat:repeat, repeat;
   }
   a{color:inherit; text-decoration:none}
   img{display:block; max-width:100%}
   .wrap{width:100%; max-width:1120px; margin:0 auto; padding:0 24px}
   .grad-text{background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
 
-  /* ---------- 3d logo ---------- */
+  /* ---------- logo (baked asset, single layer) ---------- */
   .logo3d{
-    position:relative; display:inline-block;
-    font-family:"Arial Black","Segoe UI Black",Impact,system-ui,sans-serif;
-    font-weight:900; font-style:italic; letter-spacing:-.025em; line-height:1;
-    transform:skewX(-6deg); transform-origin:center bottom;
-    filter:drop-shadow(.42em .5em .55em rgba(0,0,0,.75));
+    display:inline-block; width:auto; height:.92em; vertical-align:-.06em;
+    user-select:none; -webkit-user-drag:none;
   }
-  .logo3d .l3d-back{
-    position:absolute; left:0; top:0; color:#2a1663; white-space:nowrap; pointer-events:none;
-    text-shadow:
-      .008em .008em 0 #2a1663, .016em .016em 0 #26145b, .024em .024em 0 #221253,
-      .032em .032em 0 #1e104b, .040em .040em 0 #1a0e43, .048em .048em 0 #170c3b,
-      .056em .056em 0 #140a33, .064em .064em 0 #11072b,
-      .3em .34em .5em rgba(0,0,0,.85);
-  }
-  .logo3d .l3d-face{
-    position:relative; display:block;
-    background:linear-gradient(118deg,#4a35ff 0%,#8a1ce0 26%,#cf1395 48%,#f52c3f 70%,#ff8a2b 88%,#ffd45a 100%);
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-  }
-  .brand-logo{font-size:24px; margin-left:-2px}
-  .hero-logo{font-size:clamp(56px,9.4vw,116px); margin:0 0 .14em -4px}
-  .foot-logo{font-size:21px}
+  .brand-logo{font-size:27px; margin-left:-2px}
+  .hero-logo{font-size:clamp(60px,10vw,124px); margin:0 0 .1em -4px}
+  .foot-logo{font-size:23px}
 
   /* ---------- intro gate ---------- */
   .intro{
@@ -77,7 +56,7 @@
     display:flex; flex-direction:column; align-items:center; gap:16px; padding:0 24px;
     animation:intro-in 1s cubic-bezier(.2,.7,.2,1) both;
   }
-  .intro .logo3d{font-size:clamp(82px,16vw,168px); margin-bottom:.18em}
+  .intro .logo3d{font-size:clamp(86px,16vw,172px); margin-bottom:.1em}
   .intro-sub{
     margin:4px 0 0; color:#8b8b9e; font-size:12.5px; letter-spacing:.22em;
     text-transform:uppercase; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
@@ -129,11 +108,14 @@
   .btn-sm{padding:9px 16px; font-size:14px; border-radius:11px}
   .btn-primary{
     position:relative; border:1px solid transparent; color:#170c2b;
-    background:var(--btn-grad);
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E"),
+      var(--btn-grad);
+    background-blend-mode:overlay, normal;
     box-shadow:0 14px 36px -16px rgba(207,19,149,.65), inset 0 1px 0 rgba(255,255,255,.45);
   }
   .btn-primary:hover{
-    color:#120821; border-color:transparent; background:var(--btn-grad); filter:brightness(1.07);
+    color:#120821; border-color:transparent; filter:brightness(1.07);
     box-shadow:0 20px 44px -16px rgba(245,44,63,.8), inset 0 1px 0 rgba(255,255,255,.55);
   }
   .btn-primary svg{stroke-width:2}
@@ -218,12 +200,12 @@
   /* ---------- install ---------- */
   #install{position:relative}
   #install::before{
-    content:""; position:absolute; left:-28px; right:-28px; top:12px; bottom:-8px; z-index:-1;
-    border-radius:30px; pointer-events:none;
+    content:""; position:absolute; left:0; right:0; top:0; bottom:0; z-index:-1;
+    border-radius:26px; pointer-events:none;
     background:
-      radial-gradient(120% 120% at 12% 0%, rgba(74,53,255,.14), transparent 62%),
-      radial-gradient(100% 120% at 92% 6%, rgba(245,44,63,.12), transparent 62%),
-      linear-gradient(180deg,rgba(255,255,255,.022),rgba(255,255,255,0));
+      radial-gradient(90% 120% at 8% -10%, rgba(74,53,255,.10), transparent 60%),
+      radial-gradient(80% 120% at 95% 0%, rgba(207,19,149,.08), transparent 62%),
+      linear-gradient(180deg,rgba(255,255,255,.018),rgba(255,255,255,0));
   }
   .steps{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; counter-reset:s}
   .step{
@@ -390,7 +372,7 @@
 
 <div class="intro" id="intro">
   <div class="intro-in">
-    <div class="logo3d" aria-label="UNI"><span class="l3d-back" aria-hidden="true">UNI</span><span class="l3d-face">UNI</span></div>
+    <img class="logo3d intro-logo" src="assets/logo.png?v=7" alt="UNI" width="1098" height="432">
     <p class="intro-sub"><span data-ru="Roblox, но лучше" data-en="Roblox, but better">Roblox, но лучше</span> · v2.7.3.5-plus</p>
     <button class="intro-enter" id="enter" type="button" data-ru="Войти" data-en="Enter">Войти</button>
     <button class="intro-skip" id="skip" type="button" data-ru="Пропустить" data-en="Skip">Пропустить</button>
@@ -399,7 +381,7 @@
 
 <header class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="#top"><span class="logo3d brand-logo"><span class="l3d-back" aria-hidden="true">UNI</span><span class="l3d-face">UNI</span></span></a>
+    <a class="brand" href="#top"><img class="logo3d brand-logo" src="assets/logo.png?v=7" alt="UNI" width="1098" height="432"></a>
     <nav class="nav-links">
       <a href="#features" data-ru="Возможности" data-en="Features">Возможности</a>
       <a href="#screens" data-ru="Скриншоты" data-en="Screenshots">Скриншоты</a>
@@ -420,7 +402,7 @@
     <section class="hero">
       <div class="badge"><span class="dot"></span><span data-ru="Навсегда бесплатно · открытый код" data-en="Forever free · open source">Навсегда бесплатно · открытый код</span></div>
       <h1>
-        <span class="logo3d hero-logo"><span class="l3d-back" aria-hidden="true">UNI</span><span class="l3d-face">UNI</span></span>
+        <img class="logo3d hero-logo" src="assets/logo.png?v=7" alt="UNI" width="1098" height="432">
         <span class="thin" data-ru="Roblox, но лучше" data-en="Roblox, but better">Roblox, но лучше</span>
       </h1>
       <p class="lead" data-ru="Расширение, которое бесплатно даёт то, за что другие расширения для Roblox берут деньги: выбор региона, список серверов, стоимость трейдов, рамки профиля и ещё десятки мелочей." data-en="The extension that gives you for free what other Roblox extensions charge for: region picker, server list, trade values, profile frames and dozens of quality-of-life fixes.">Расширение, которое бесплатно даёт то, за что другие расширения для Roblox берут деньги: выбор региона, список серверов, стоимость трейдов, рамки профиля и ещё десятки мелочей.</p>
@@ -613,7 +595,7 @@
 <footer>
   <div class="wrap">
     <div class="foot-top">
-      <a class="brand" href="#top"><span class="logo3d foot-logo"><span class="l3d-back" aria-hidden="true">UNI</span><span class="l3d-face">UNI</span></span></a>
+      <a class="brand" href="#top"><img class="logo3d foot-logo" src="assets/logo.png?v=7" alt="UNI" width="1098" height="432"></a>
       <nav class="foot-links">
         <a href="https://t.me/UNI_EXT" target="_blank" rel="noopener">Telegram</a>
         <a href="downloads/UNI-2.7.3.5-plus.zip" download data-ru="Скачать" data-en="Download">Скачать</a>
